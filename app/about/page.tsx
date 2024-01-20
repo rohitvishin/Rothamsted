@@ -2,12 +2,12 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function About() {
-  const videoRef = useRef();
-  const [stream, setStream] = useState(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
 
   const startCamera = async () => {
     try {
-      const newStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
 
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
@@ -22,7 +22,9 @@ export default function About() {
     if (stream) {
       const tracks = stream.getTracks();
       tracks.forEach(track => track.stop());
-      videoRef.current.srcObject = null;
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
       setStream(null);
     }
   };
