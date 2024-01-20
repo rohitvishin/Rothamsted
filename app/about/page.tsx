@@ -1,47 +1,47 @@
 'use client';
-import React, { useState } from 'react';
-import QrScanner from 'react-qr-scanner';
+import { useState, useEffect, useRef } from 'react';
 
 export default function About() {
-  const [result, setResult] = useState(null);
+  const videoRef = useRef();
+  const [stream, setStream] = useState(null);
 
-  const handleError = (err) => {
-    console.error(err);
-  };
+  const startCamera = async () => {
+    try {
+      const newStream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-  const handleScan = (data) => {
-    if (data) {
-      setResult(data);
+      if (videoRef.current) {
+        videoRef.current.srcObject = newStream;
+        setStream(newStream);
+      }
+    } catch (error) {
+      console.error('Error accessing camera:', error);
     }
   };
 
   const stopCamera = () => {
-    setResult(null);
+    if (stream) {
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      videoRef.current.srcObject = null;
+      setStream(null);
+    }
   };
 
-  const scannerStyle = {
-    width: '100%',
-    height: 'calc(100vw - 20px)', // Adjust the height to maintain a square shape
-    maxWidth: '400px', // Set a maximum width for the scanner
-    margin: 'auto',
-  };
+  useEffect(() => {
+    startCamera();
+
+    return () => {
+      stopCamera();
+    };
+  }, []);
 
   return (
     <div>
-      {result ? (
-        <div>
-          <p>QR Code Scanned: {result}</p>
-          <button onClick={stopCamera}>Stop Camera</button>
-        </div>
-      ) : (
-        <div>
-          <QrScanner
-            onScan={handleScan}
-            onError={handleError}
-            style={scannerStyle}
-          />
-        </div>
-      )}
+      <video ref={videoRef} autoPlay playsInline />
+      <div>
+        <button onClick={startCamera}>Start Camera</button>
+        <button onClick={stopCamera}>Stop Camera</button>
+      </div>
     </div>
   );
 }
