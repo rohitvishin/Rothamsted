@@ -23,7 +23,7 @@ export default function Camera() {
       console.error('Error accessing camera:', error);
   
       // Check if the error is due to user denying camera access
-      if (error.name === 'NotAllowedError') {
+      if ((error as any).name  === 'NotAllowedError') {
         setShowModal(true);
       }
     }
@@ -45,17 +45,6 @@ export default function Camera() {
 
   const handleRetry = async () => {
     setShowModal(false);
-    try {
-      // Revoke camera permissions (may not work in all browsers)
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { revoke: true },
-      });
-      stream.getTracks().forEach((track) => track.stop());
-    } catch (error) {
-      console.error("Error revoking camera permissions:", error);
-    }
-
-    // Display message to guide the user to check browser settings
     alert(
       'Please check your browser settings to enable camera access. You can usually find this in your browser settings under "Site settings" or "Permissions".'
     );
