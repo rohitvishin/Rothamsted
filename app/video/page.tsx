@@ -1,11 +1,11 @@
-'use client'
+'use client';
 import { useEffect, useRef } from 'react';
 
 type VideoPlayerProps = {
   videoSrc: string; // Type for the video source URL
 };
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
+const Video: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -40,4 +40,4 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
   );
 };
 
-export default VideoPlayer;
+export default Video;
