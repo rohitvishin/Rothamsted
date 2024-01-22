@@ -1,7 +1,7 @@
-'use client';
+'use client'
 import { useEffect, useRef } from 'react';
 
-const VideoPlayer = ({ videoSrc }) => {
+const VideoPlayer = ({ videoSrc }:{videoSrc:any}) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
