@@ -1,23 +1,17 @@
 'use client';
-import About from "./camera/page";
-export default function Home() {
+// pages/index.js
+import VideoPlayer from './video/page'
 
-  if(typeof window !== 'undefined'){
-    if(window.innerWidth <= 768){
-      return (
-        <>
-        <h2>Sentience Dial Storyboard</h2>
-        <About/>
-        </>
-      );
-    }
-  }
-  else{
-    return (
-      <>
-      <h2>Pls use mobile</h2>
-      </>
-    );
-  }
-  
-}
+const Home = () => {
+  const videoSrc = '/video/road.mp4';
+
+  return (
+    <div>
+      <h1>Welcome to My Website</h1>
+      <VideoPlayer videoSrc={videoSrc} />
+    </div>
+  );
+};
+
+export default Home;
+

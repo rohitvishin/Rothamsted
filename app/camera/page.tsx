@@ -6,28 +6,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Camera() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const overlayRef = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const startCamera = async () => {
     try {
       const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
+        video: { facingMode: "environment" },
       });
-  
+
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
         setStream(newStream);
       }
     } catch (error) {
-      console.error('Error accessing camera:', error);
-  
+      console.error("Error accessing camera:", error);
+
       // Check if the error is due to user denying camera access
-      if ((error as any).name  === 'NotAllowedError') {
+      if ((error as any).name === "NotAllowedError") {
         setShowModal(true);
       }
     }
   };
+
   const stopCamera = () => {
     if (stream) {
       const tracks = stream.getTracks();
@@ -57,9 +59,27 @@ export default function Camera() {
       stopCamera();
     };
   }, []);
-  return (  
-    <div>
-      <video ref={videoRef} autoPlay playsInline />
+
+  return (
+    <div style={{ position: "relative" }}>
+      <video ref={videoRef} autoPlay playsInline style={{ width: "100%" }} />
+
+      {/* Overlay image */}
+      <img
+        ref={overlayRef}
+        src="fish.png" // Replace with the URL of your transparent image
+        alt="Overlay"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20%",
+          height: "20%",
+          pointerEvents: "none",
+        }}
+      />
+
       <div>
         <Button variant="primary" onClick={startCamera}>
           Start Camera
