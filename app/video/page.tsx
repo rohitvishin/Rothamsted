@@ -1,4 +1,4 @@
-// components/VideoPlayer.js
+'use client';
 import { useEffect, useRef } from 'react';
 
 const VideoPlayer = ({ videoSrc }) => {
