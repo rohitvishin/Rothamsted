@@ -1,6 +1,6 @@
 'use client';
 // pages/index.js
-import VideoPlayer from './video/page'
+import VideoPlayer from "./video/page";
 
 const Home = () => {
   const videoSrc = '/video/road.mp4';
