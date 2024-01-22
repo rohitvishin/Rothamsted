@@ -1,20 +1,26 @@
 'use client'
 import { useEffect, useRef } from 'react';
 
-const VideoPlayer = ({ videoSrc }:{videoSrc:any}) => {
-  const videoRef = useRef(null);
+type VideoPlayerProps = {
+  videoSrc: string; // Type for the video source URL
+};
+
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const videoElement = videoRef.current;
 
     const handleUserInteraction = () => {
-      videoElement.play().then(() => {
-        // Autoplay started successfully
-        videoElement.muted = false; // Unmute the video
-      }).catch((error) => {
-        // Autoplay failed, handle error or display a play button
-        console.error('Autoplay failed:', error);
-      });
+      if (videoElement) {
+        videoElement.play().then(() => {
+          // Autoplay started successfully
+          videoElement.muted = false; // Unmute the video
+        }).catch((error) => {
+          // Autoplay failed, handle error or display a play button
+          console.error('Autoplay failed:', error);
+        });
+      }
     };
 
     // Listen for user interaction (e.g., a click)
