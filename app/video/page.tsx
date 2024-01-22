@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 
 type VideoPlayerProps = {
-  videoSrc: string; // Type for the video source URL
+  videoSrc: any; // Type for the video source URL
 };
 
 const Video: React.FC<VideoPlayerProps> = ({ videoSrc }) => {
