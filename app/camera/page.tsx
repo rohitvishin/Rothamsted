@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+
 export default function Camera() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const overlayRef = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
@@ -8,13 +9,14 @@ export default function Camera() {
   const [isTapON, setIsTapON] = useState(false);
 
   useEffect(() => {
-    if(isTapON===true){
+    if (isTapON === true) {
       setTimeout(() => {
-        setIsTapON(false)
+        setIsTapON(false);
       }, 2000);
     }
   }, [isTapON]);
-  const startCamera = async () => {    
+
+  const startCamera = async () => {
     setIsConnecting(true); // Set to true when starting the camera connection
     try {
       const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
@@ -76,8 +78,13 @@ export default function Camera() {
   }, [isConnecting]);
 
   return (
-    <div style={{ position: "relative" }}>
-      <video ref={videoRef} autoPlay playsInline style={{ width: "100%" }} />
+    <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        style={{ width: "100%", height: "100%" }}
+      />
 
       {isConnecting && (
         <div
@@ -101,8 +108,8 @@ export default function Camera() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "40%",
-              height: "40%",
+              width: "30%",
+              height: "20%",
               pointerEvents: "none",
             }}
           />
@@ -123,22 +130,20 @@ export default function Camera() {
           Connecting to Sentience Dial...
         </p>
       )}
-      {
-        isTapON && (
-          <p
-            style={{
-              position: "absolute",
-              top: "60%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "black",
-              backgroundColor:'yellow'
-            }}
-          >
-            Tap anywhere to scan the environment..
-          </p>
-        )
-      }
+      {isTapON && (
+        <p
+          style={{
+            position: "absolute",
+            top: "60%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "black",
+            backgroundColor: "yellow",
+          }}
+        >
+          Tap anywhere to scan the environment..
+        </p>
+      )}
     </div>
   );
 }
