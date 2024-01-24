@@ -21,3 +21,17 @@
     text-wrap: balance;
   }
 }
+
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed to center vertically in the viewport */
+}
+
+.loader-image {
+  width: 100px; /* Adjust the width of your loader image as needed */
+  height: auto;
+  margin-right: 10px; /* Optional: Add some space between the image and the text */
+}

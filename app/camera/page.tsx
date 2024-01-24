@@ -1,16 +1,21 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 export default function Camera() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const overlayRef = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [showModal, setShowModal] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isTapON, setIsTapON] = useState(false);
 
-  const startCamera = async () => {
+  useEffect(() => {
+    if(isTapON===true){
+      setTimeout(() => {
+        setIsTapON(false)
+      }, 2000);
+    }
+  }, [isTapON]);
+  const startCamera = async () => {    
+    setIsConnecting(true); // Set to true when starting the camera connection
     try {
       const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
@@ -19,13 +24,18 @@ export default function Camera() {
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
         setStream(newStream);
+        // Wait for 2 seconds and then hide the overlay image and the connecting text
+        setTimeout(() => {
+          setIsConnecting(false);
+          setIsTapON(true);
+        }, 3000);
       }
     } catch (error) {
       console.error("Error accessing camera:", error);
 
       // Check if the error is due to user denying camera access
       if ((error as any).name === "NotAllowedError") {
-        setShowModal(true);
+        setIsConnecting(false); // Set to false if camera access is denied
       }
     }
   };
@@ -41,17 +51,6 @@ export default function Camera() {
     }
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
-
-  const handleRetry = async () => {
-    setShowModal(false);
-    alert(
-      'Please check your browser settings to enable camera access. You can usually find this in your browser settings under "Site settings" or "Permissions".'
-    );
-  };
-
   useEffect(() => {
     startCamera();
 
@@ -60,52 +59,86 @@ export default function Camera() {
     };
   }, []);
 
+  useEffect(() => {
+    let hideTimeout: NodeJS.Timeout;
+
+    if (!isConnecting) {
+      hideTimeout = setTimeout(() => {
+        if (overlayRef.current) {
+          overlayRef.current.style.display = "none";
+        }
+      }, 100);
+    }
+
+    return () => {
+      clearTimeout(hideTimeout);
+    };
+  }, [isConnecting]);
+
   return (
     <div style={{ position: "relative" }}>
       <video ref={videoRef} autoPlay playsInline style={{ width: "100%" }} />
 
-      {/* Overlay image */}
-      <img
-        ref={overlayRef}
-        src="fish.png" // Replace with the URL of your transparent image
-        alt="Overlay"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "20%",
-          height: "20%",
-          pointerEvents: "none",
-        }}
-      />
+      {isConnecting && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% transparency
+            pointerEvents: "none",
+          }}
+        >
+          <img
+            ref={overlayRef}
+            src="dial-over.png" // Replace with the URL of your transparent image
+            alt="Overlay"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "40%",
+              height: "40%",
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+      )}
 
-      <div>
-        <Button variant="primary" onClick={startCamera}>
-          Start Camera
-        </Button>
-        <Button variant="primary" onClick={stopCamera}>
-          Stop Camera
-        </Button>
-      </div>
-
-      {/* Modal for camera access denial */}
-      <Modal show={showModal} onHide={handleModalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Camera Access Denied</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>You denied camera access. Do you want to try again?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleRetry}>
-            Retry
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {isConnecting && (
+        <p
+          style={{
+            position: "absolute",
+            top: "60%",
+            paddingTop: 80,
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "black",
+          }}
+        >
+          Connecting to Sentience Dial...
+        </p>
+      )}
+      {
+        isTapON && (
+          <p
+            style={{
+              position: "absolute",
+              top: "60%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "black",
+              backgroundColor:'yellow'
+            }}
+          >
+            Tap anywhere to scan the environment..
+          </p>
+        )
+      }
     </div>
   );
 }
