@@ -1,52 +1,36 @@
 "use client";
-import Link from "next/link";
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from "react";
-export default function Home() {
-  const [Loader, setLoader] = useState(true);
+export default function Landing() {
+  const router = useRouter()
+  const [Headphone, setHeadphone] = useState(false)
   useEffect(() => {
     setTimeout(() => {
-      setLoader(false);
+      setHeadphone(true);
     }, 2000);
-  }, []);
+    if(Headphone===true){
+      setTimeout(() => {
+        router.push('/home')
+      }, 2000);
+    }
+  }, [Headphone])
   if (typeof window !== "undefined") {
     if (window.innerWidth <= 768) {
-      if (Loader === true) {
-        return (
-          <div className="loader-container">
-            <img src="dial.png" alt="Loading" className="loader-image" />
-          </div>
-        );
-      } else {
-        return (
-          <div
-            style={{
-              backgroundColor: "#729dab",
-              height: "100vh",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                margin: 50,
-                height: 420,
-                textAlign: "center",
-                backgroundColor: "#dee0e3",
-              }}
-            >
-              <h1 style={{ paddingTop: 150, fontSize: 30, fontWeight: "bold" }}>
-                Behold! The Rothamsted Sentience Dial!
-              </h1>
-            </div>
-            <div style={{ margin: 10 }}>
-              <Link href="/camera">
-                <img src="dial.png" style={{ height: 90 }}></img>
-              </Link>
-            </div>
-          </div>
-        );
-      }
+      return (
+        <div style={{ backgroundImage: 'url("rothamsted/BG.png")', backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+         {
+          Headphone && (
+            <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column',textAlign:'center', alignItems: 'center', justifyContent: 'center' }}>
+                <img src="/rothamsted/Headphone_Icon.png" height={100} width={100} style={{}} alt="Headphone" />
+                <p style={{ color: 'white' }}>
+                THIS APP IS BETTER EXPERIENCED WITH HEADPHONES
+                </p>
+              </div>
+             
+          )
+         } 
+        </div>
+      )
     }
   } else {
     return (
