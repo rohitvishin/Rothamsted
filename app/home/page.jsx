@@ -18,7 +18,7 @@ export default function Home() {
     return (
       <div
         style={{
-          backgroundImage: 'url("rothamsted/BG-H.png")',
+          backgroundImage: 'url("rothamsted/BH-H.png")',
           height: "100vh",
           display: "flex",
           flexDirection: "column",

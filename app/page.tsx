@@ -4,14 +4,29 @@ import { useState, useEffect } from "react";
 export default function Landing() {
   const router = useRouter()
   const [Headphone, setHeadphone] = useState(false)
+  const camera = async () => {
+    try {
+      const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" },
+      });
+      setTimeout(() => {
+        setHeadphone(true);
+      }, 3000);
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+
+      // Check if the error is due to user denying camera access
+      if ((error as any).name === "NotAllowedError") {
+        alert('camera permission is mendatory')
+    }
+  };
+};
   useEffect(() => {
-    setTimeout(() => {
-      setHeadphone(true);
-    }, 2000);
+    camera();
     if(Headphone===true){
       setTimeout(() => {
         router.push('/home')
-      }, 2000);
+      }, 3000);
     }
   }, [Headphone])
   if (typeof window !== "undefined") {
