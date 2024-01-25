@@ -22,7 +22,9 @@ export default function Landing() {
   };
 };
   useEffect(() => {
-    camera();
+    setTimeout(() => {
+      camera();
+    }, 1000);
     if(Headphone===true){
       setTimeout(() => {
         router.push('/home')
