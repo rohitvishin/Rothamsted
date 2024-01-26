@@ -25,11 +25,6 @@ export default function Landing() {
     setTimeout(() => {
       camera();
     }, 1000);
-    if (Headphone === true) {
-      setTimeout(() => {
-        router.push("/home");
-      }, 3000);
-    }
   }, [Headphone]);
   if (typeof window !== "undefined") {
     if (window.innerWidth <= 768) {
@@ -51,23 +46,43 @@ export default function Landing() {
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
                 height: "100vh",
                 width: "100vw",
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "center",
-                alignItems: "center",
-                justifyContent: "center",
               }}
             >
-              <img
-                src="/rothamsted/Headphone_Icon.png"
-                height={100}
-                width={100}
-                style={{}}
-                alt="Headphone"
-              />
-              <p style={{ color: "white" }}>
-                THIS APP IS BETTER EXPERIENCED WITH HEADPHONES
+              <p
+                style={{
+                  color: "white",
+                  flexDirection: "column",
+                  display: "flex",
+                  padding: "30px",
+                  textAlign: "end",
+                }}
+                onClick={()=>{
+                  return router.push('/home')
+                }}
+              >
+                Skip
               </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  textAlign: "center",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: "120px",
+                }}
+              >
+                <img
+                  src="/rothamsted/Headphone_Icon.png"
+                  height={100}
+                  width={100}
+                  style={{}}
+                  alt="Headphone"
+                />
+                <p style={{ color: "white" }}>
+                  THIS APP IS BETTER EXPERIENCED WITH HEADPHONES
+                </p>
+              </div>
             </div>
           )}
         </div>
