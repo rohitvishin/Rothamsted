@@ -29,7 +29,7 @@ const GyroscopicMotionComponent: React.FC = () => {
     <div
       id="backgroundImage"
       style={{
-        backgroundImage: 'url("rothamsted/BG-2.png")',
+        backgroundImage: 'url("BG-2.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         width: '100vw',
