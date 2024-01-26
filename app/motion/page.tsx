@@ -10,7 +10,7 @@ const GyroscopicMotionComponent: React.FC = () => {
       // Example: adjust background position based on the device's alpha value
       const backgroundImage = document.getElementById('backgroundImage');
       if (backgroundImage) {
-        const newPositionX = (event.alpha / 360) * 100; // Adjust the factor as needed
+        const newPositionX = ((event.alpha || 0) / 360) * 100; // Use 0 if alpha is null
         backgroundImage.style.backgroundPositionX = `${newPositionX}%`;
       }
     };
