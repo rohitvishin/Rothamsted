@@ -7,11 +7,13 @@ const GyroscopicMotionComponent: React.FC = () => {
       // Use event.alpha, event.beta, and event.gamma to access device orientation data
       // Perform actions based on the motion data
 
-      // Example: adjust background position based on the device's alpha value
+      // Example: adjust background position based on the device's beta and gamma values
       const backgroundImage = document.getElementById('backgroundImage');
       if (backgroundImage) {
-        const newPositionX = ((event.alpha || 0) / 360) * 100; // Use 0 if alpha is null
+        const newPositionX = ((event.beta || 0) / 180) * 100; // Adjust the factor as needed
+        const newPositionY = ((event.gamma || 0) / 90) * 100; // Adjust the factor as needed
         backgroundImage.style.backgroundPositionX = `${newPositionX}%`;
+        backgroundImage.style.backgroundPositionY = `${newPositionY}%`;
       }
     };
 
@@ -27,7 +29,7 @@ const GyroscopicMotionComponent: React.FC = () => {
     <div
       id="backgroundImage"
       style={{
-        backgroundImage: 'url("rothamsted/BH-H.png")',
+        backgroundImage: 'url("rothamsted/BG-2.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         width: '100vw',
