@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect } from 'react';
 
-const Motion = () => {
+const Motion: React.FC = () => {
   useEffect(() => {
-    const handleOrientation = (event) => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
       // Use event.alpha, event.beta, and event.gamma to access device orientation data
       // Perform actions based on the motion data
 
