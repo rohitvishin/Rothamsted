@@ -6,6 +6,7 @@ export default function Camera() {
   const overlayRef = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isBarcode, setIsBarcode] = useState(false);
   const [isTapON, setIsTapON] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Camera() {
         setTimeout(() => {
           setIsConnecting(false);
           setIsTapON(true);
+          setIsBarcode(true);
         }, 3000);
       }
     } catch (error) {
@@ -78,7 +80,14 @@ export default function Camera() {
   }, [isConnecting]);
 
   return (
-    <div style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
       <video
         ref={videoRef}
         autoPlay
@@ -87,49 +96,50 @@ export default function Camera() {
       />
 
       {isConnecting && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% transparency
-            pointerEvents: "none",
-          }}
-        >
-          <img
-            ref={overlayRef}
-            src="dial-over.png" // Replace with the URL of your transparent image
-            alt="Overlay"
+        <>
+          <div
             style={{
               position: "absolute",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "30%",
-              height: "20%",
+              width: "100%",
+              height: "100%",
+              backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% transparency
               pointerEvents: "none",
             }}
-          />
-        </div>
+          >
+            <img
+              ref={overlayRef}
+              src="dial-over.png" // Replace with the URL of your transparent image
+              alt="Overlay"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "35%",
+                height: "20%",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+          <p
+            style={{
+              position: "absolute",
+              top: "60%",
+              paddingTop: 80,
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "black",
+            }}
+          >
+            Connecting to Sentience Dial...
+          </p>
+        </>
       )}
+      
 
-      {isConnecting && (
-        <p
-          style={{
-            position: "absolute",
-            top: "60%",
-            paddingTop: 80,
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "black",
-          }}
-        >
-          Connecting to Sentience Dial...
-        </p>
-      )}
       {isTapON && (
         <p
           style={{
