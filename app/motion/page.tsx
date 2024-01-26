@@ -1,16 +1,17 @@
 'use client';
 import React, { useEffect } from 'react';
 
-const Motion: React.FC = () => {
+const GyroscopicMotionComponent: React.FC = () => {
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
       // Use event.alpha, event.beta, and event.gamma to access device orientation data
       // Perform actions based on the motion data
 
-      // Example: rotate an element based on the device's alpha value
-      const elementToRotate = document.getElementById('rotateMe');
-      if (elementToRotate) {
-        elementToRotate.style.transform = `rotate(${event.alpha}deg)`;
+      // Example: adjust background position based on the device's alpha value
+      const backgroundImage = document.getElementById('backgroundImage');
+      if (backgroundImage) {
+        const newPositionX = (event.alpha / 360) * 100; // Adjust the factor as needed
+        backgroundImage.style.backgroundPositionX = `${newPositionX}%`;
       }
     };
 
@@ -23,11 +24,20 @@ const Motion: React.FC = () => {
   }, []); // Empty dependency array ensures that the effect runs only once during component mount
 
   return (
-    <div>
+    <div
+      id="backgroundImage"
+      style={{
+        backgroundImage: 'url("rothamsted/BH-H.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        width: '100vw',
+        height: '100vh',
+      }}
+    >
       {/* Your React component content here */}
-      <div id="rotateMe">Rotate me based on gyroscopic motion!</div>
+      <div>Your content goes here</div>
     </div>
   );
 };
 
-export default Motion;
+export default GyroscopicMotionComponent;
