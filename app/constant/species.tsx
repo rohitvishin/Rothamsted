@@ -4,17 +4,17 @@ export const speciesList = {
       {
         name: "BEE",
         image: "species/BEE.png",
-        video: "BEE.mp4",
+        video: "video/EA_Bee.mp4",
       },
       {
         name: "BEETLE",
         image: "species/BEETLE.png",
-        video: "BEETLE.mp4",
+        video: "video/EA_Bee.mp4",
       },
       {
         name: "DOG",
         image: "species/DOG.png",
-        video: "DOG.mp4",
+        video: "video/EA_Bee.mp4",
       },
     ],
   };
