@@ -9,13 +9,36 @@ interface MyModalProps {
   video2:any;
   handleClose: () => void;
 }
-const handleClick = (side:{side:any}) =>{
+const handleClick = (side:any) =>{
   console.log(side)
+  if (side !== null) {
+    const videoElement = document.createElement("video");
+    videoElement.src = side;
+    videoElement.height = window.innerHeight;
+    videoElement.width = window.innerWidth;
+    videoElement.controls = true;
+    videoElement.autoplay = true;
+
+    // Event listener for exiting fullscreen
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        document.body.removeChild(videoElement);
+        // Exit fullscreen when the video ends
+        window.location.href='/form';
+      }
+    });
+
+    document.body.appendChild(videoElement);
+
+    videoElement.requestFullscreen().catch((err) => {
+      console.error("Error attempting to enable fullscreen", err);
+    });
+}
 }
 
 const MyModal: FC<MyModalProps> = ({ showModal,video1,video2, handleClose }) => {
   return (
-    <Modal show={showModal} onHide={handleClose} centered>
+    <Modal className='bg-img' show={showModal} onHide={handleClose} centered>
       <Modal.Body>
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="text-center mb-3" onClick={()=>handleClick(video1)} style={{borderRadius: 10,backgroundColor:'#fff', padding:10,width:'90%'}}>
@@ -31,9 +54,12 @@ const MyModal: FC<MyModalProps> = ({ showModal,video1,video2, handleClose }) => 
       </Modal.Body>
       <style>
         {`
+          .bg-img{
+            background-image: url("rothamsted/gradient.png");
+          }
           .modal-content {
-            background-color: rgba(255, 255, 255, 0); /* Complete transparency */
-            border: none; /* Optional: Remove border */
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
           }
         `}
       </style>

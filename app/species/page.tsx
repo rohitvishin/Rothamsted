@@ -1,12 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { speciesList } from "../constant/species";
 import MyModal from "../constant/MyModal";
 
 export default function Species() {
   const [species, setSpecies] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
-
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * speciesList.data.length);
     const randomSpecies = speciesList.data[randomIndex];
@@ -57,7 +56,7 @@ export default function Species() {
             onClick={handleClick}
             style={{ cursor: "pointer" }}
           />
-          <MyModal showModal={showModal} video1={species.video} video2={species.video} handleClose={() => setShowModal(false)} />
+          <MyModal showModal={showModal} video1={species.video} video2={species.video1} handleClose={() => setShowModal(false)} />
         </>
       ) : (
         <p>Loading..</p>

@@ -14,6 +14,9 @@ export default function Camera() {
       setTimeout(() => {
         setIsTapON(false);
       }, 2000);
+      setTimeout(() => {
+        window.location.href="/species";
+      }, 4000);
     }
   }, [isTapON]);
 
