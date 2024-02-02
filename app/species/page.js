@@ -1,13 +1,14 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { speciesList } from "../constant/species";
 
-const Species: FC = () => {
-  const [species, setSpecies] = useState<any>(null);
+const Species = () => {
+  const [species, setSpecies] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const playIntro = (species: any) => {
+
+  const playIntro = (species) => {
     if (species !== null) {
       const videoElement = document.createElement("video");
       videoElement.src = species.intro;
@@ -16,19 +17,20 @@ const Species: FC = () => {
       videoElement.controls = true;
       videoElement.autoplay = true;
 
-      // Event listener for exiting fullscreen
       document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
       });
+
       document.addEventListener("webkitfullscreenchange", () => {
-        //@ts-ignore
-        if (!document.fullscreenElement &&
+        if (
+          !document.fullscreenElement &&
           !document.webkitFullscreenElement &&
           !document.mozFullScreenElement &&
-          !document.msFullscreenElement) {
+          !document.msFullscreenElement
+        ) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
@@ -41,7 +43,8 @@ const Species: FC = () => {
       });
     }
   };
-  const handleClick = (side: any, future: string, data: any) => {
+
+  const handleClick = (side, future, data) => {
     console.log(side);
     if (data !== null && side !== null) {
       const videoElement = document.createElement("video");
@@ -50,30 +53,39 @@ const Species: FC = () => {
       videoElement.width = window.innerWidth;
       videoElement.controls = true;
       videoElement.autoplay = true;
-  
-      
+
       document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement || !document.exitFullscreen || !document.fullscreen || !document.fullscreenElement) {
+        if (
+          !document.fullscreenElement ||
+          !document.exitFullscreen ||
+          !document.fullscreen ||
+          !document.fullscreenElement
+        ) {
           document.body.removeChild(videoElement);
-          // Exit fullscreen when the video ends
-          window.location.href = "/form?future=" + future + "&species=" + data.name;
+          window.location.href = `/form?future=${future}&species=${data.name}`;
         }
       });
+
       document.addEventListener("onwebkitfullscreenchange", () => {
-        if (!document.fullscreenElement || !document.exitFullscreen || !document.fullscreen || !document.fullscreenElement) {
+        if (
+          !document.fullscreenElement ||
+          !document.exitFullscreen ||
+          !document.fullscreen ||
+          !document.fullscreenElement
+        ) {
           document.body.removeChild(videoElement);
-          // Exit fullscreen when the video ends
-          window.location.href = "/form?future=" + future + "&species=" + data.name;
+          window.location.href = `/form?future=${future}&species=${data.name}`;
         }
       });
+
       document.body.appendChild(videoElement);
-  
+
       videoElement.requestFullscreen().catch((err) => {
         console.error("Error attempting to enable fullscreen", err);
       });
     }
   };
-  
+
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * speciesList.data.length);
     const randomSpecies = speciesList.data[randomIndex];
@@ -81,7 +93,7 @@ const Species: FC = () => {
   }, []);
 
   const handleVideoEnd = () => {
-    setShowModal(true); // Show the modal when the video ends
+    setShowModal(true);
   };
 
   const handleModalClose = () => {
