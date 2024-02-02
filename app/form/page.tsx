@@ -1,10 +1,88 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { speciesList } from "../constant/species";
 export default function Form() {
-    
-      return (
-        <div>
-          <h2>Google Sheet Updater</h2>
-        </div>
-      );
-    };
+  const playAlter = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    var future = urlParams.get("future");
+    const species = urlParams.get("species");
+    console.log(future + " " + species);
+    const spec = speciesList.data.find((obj) => obj.name === species);
+    if (spec) {
+      const videoElement = document.createElement("video");
+      if (future == "bright") {
+        videoElement.src = spec.dark;
+        future = "dark";
+      } else {
+        videoElement.src = spec.bright;
+        future = "bright";
+      }
+      videoElement.height = window.innerHeight;
+      videoElement.width = window.innerWidth;
+      videoElement.controls = true;
+      videoElement.autoplay = true;
+
+      // Event listener for exiting fullscreen
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+          document.body.removeChild(videoElement);
+          // Exit fullscreen when the video ends
+          window.location.href =
+            "/form?future=" + future + "&species=" + species;
+        }
+      });
+
+      document.body.appendChild(videoElement);
+
+      videoElement.requestFullscreen().catch((err) => {
+        console.error("Error attempting to enable fullscreen", err);
+      });
+    }
+  };
+  return (
+    <div
+      style={{
+        backgroundImage: `url("rothamsted/BG.png")`,
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div style={{ textAlign: "center" }}>
+        <p
+          onClick={playAlter}
+          style={{
+            backgroundImage: `url("rothamsted/gradient.png")`,
+            borderRadius: "10px",
+            padding: "10px",
+          }}
+        >
+          HEAR FROM THE ALTERNATIVE FUTURE
+        </p>
+        <p
+          style={{
+            backgroundImage: `url("rothamsted/gradient.png")`,
+            borderRadius: "10px",
+            padding: "10px",
+            marginTop: "20px",
+          }}
+        >
+          CONNECT WITH ANOTHER SPECIES
+        </p>
+        <p
+          style={{
+            backgroundImage: `url("rothamsted/gradient.png")`,
+            marginTop: "20px",
+            borderRadius: "10px",
+            padding: "10px",
+          }}
+        >
+          GET ON TEAM FARMER NOW!
+        </p>
+      </div>
+    </div>
+  );
+}

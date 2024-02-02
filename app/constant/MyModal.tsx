@@ -1,16 +1,17 @@
-'use client';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { FC, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+"use client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { FC, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 interface MyModalProps {
   showModal: boolean;
-  video1:any;
-  video2:any;
+  data:any,
+  video1: any;
+  video2: any;
   handleClose: () => void;
 }
-const handleClick = (side:any) =>{
-  console.log(side)
+const handleClick = (side: any,future:string,data:any) => {
+  console.log(side);
   if (side !== null) {
     const videoElement = document.createElement("video");
     videoElement.src = side;
@@ -24,7 +25,7 @@ const handleClick = (side:any) =>{
       if (!document.fullscreenElement) {
         document.body.removeChild(videoElement);
         // Exit fullscreen when the video ends
-        window.location.href='/form';
+        window.location.href = "/form?future="+future+"&species="+data.name;
       }
     });
 
@@ -33,22 +34,46 @@ const handleClick = (side:any) =>{
     videoElement.requestFullscreen().catch((err) => {
       console.error("Error attempting to enable fullscreen", err);
     });
-}
-}
+  }
+};
 
-const MyModal: FC<MyModalProps> = ({ showModal,video1,video2, handleClose }) => {
+const MyModal: FC<MyModalProps> = ({
+  showModal,
+  data,
+  video1,
+  video2,
+  handleClose,
+}) => {
   return (
-    <Modal className='bg-img' show={showModal} onHide={handleClose} centered>
+    <Modal className="bg-img" show={showModal} onHide={handleClose} centered>
       <Modal.Body>
         <div className="d-flex flex-column align-items-center justify-content-center">
-          <div className="text-center mb-3" onClick={()=>handleClick(video1)} style={{borderRadius: 10,backgroundColor:'#fff', padding:10,width:'90%'}}>
-            <h2>Dark future</h2>
-            <p>We are from the dark future</p>
-          </div>
-          <hr />
-          <div className="text-center" onClick={()=>handleClick(video2)} style={{borderRadius: 10,backgroundColor:'#fff', padding:10,width:'90%'}}>
+          <div
+            className="text-center mb-3"
+            onClick={() => handleClick(video1,'bright',data)}
+            style={{
+              borderRadius: 10,
+              backgroundColor: "#fff",
+              padding: 10,
+              width: "90%",
+            }}
+          >
             <h2>Bright future</h2>
             <p>We are from the bright future</p>
+          </div>
+          <hr />
+          <div
+            className="text-center"
+            onClick={() => handleClick(video2,'dark',data)}
+            style={{
+              borderRadius: 10,
+              backgroundColor: "#fff",
+              padding: 10,
+              width: "90%",
+            }}
+          >
+            <h2>Dark future</h2>
+            <p>We are from the dark future</p>
           </div>
         </div>
       </Modal.Body>

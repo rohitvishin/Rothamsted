@@ -1,7 +1,8 @@
 "use client";
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { speciesList } from "../constant/species";
 import MyModal from "../constant/MyModal";
+
 
 export default function Species() {
   const [species, setSpecies] = useState<any>(null);
@@ -19,7 +20,7 @@ export default function Species() {
   const handleClick = () => {
     if (species !== null) {
       const videoElement = document.createElement("video");
-      videoElement.src = species.video;
+      videoElement.src = species.intro;
       videoElement.height = window.innerHeight;
       videoElement.width = window.innerWidth;
       videoElement.controls = true;
@@ -45,18 +46,45 @@ export default function Species() {
   };
 
   return (
-    <div>
-      <h1>Random Species</h1>
+    <div
+      style={{
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        display: "flex",
+        height: "100vh",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
       {species ? (
         <>
-          <p>Name: {species.name}</p>
-          <img
-            src={species.image}
-            alt={species.name}
-            onClick={handleClick}
-            style={{ cursor: "pointer" }}
+          <div
+            style={{
+              borderRadius:'15px',
+              backgroundImage: `url("./rothamsted/gradient.png")`,
+            }}
+          >
+            <img
+              src={species.image}
+              alt={species.name}
+              onClick={handleClick}
+              style={{
+                cursor: "pointer",
+                height: "200px",
+                padding:'20px',
+                borderRadius: "10px",
+              }}
+            />
+            <p>TAP TO KNOW MORE</p>
+          </div>
+          <MyModal
+            showModal={showModal}
+            data={species}
+            video1={species.bright}
+            video2={species.dark}
+            handleClose={() => setShowModal(false)}
           />
-          <MyModal showModal={showModal} video1={species.video} video2={species.video1} handleClose={() => setShowModal(false)} />
         </>
       ) : (
         <p>Loading..</p>
