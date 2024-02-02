@@ -24,7 +24,11 @@ const Species: FC = () => {
         }
       });
       document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.exitFullscreen) {
+        //@ts-ignore
+        if (!document.fullscreenElement &&
+          !document.webkitFullscreenElement &&
+          !document.mozFullScreenElement &&
+          !document.msFullscreenElement) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
@@ -49,14 +53,14 @@ const Species: FC = () => {
   
       
       document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
+        if (!document.fullscreenElement || !document.exitFullscreen || !document.fullscreen || !document.fullscreenElement) {
           document.body.removeChild(videoElement);
           // Exit fullscreen when the video ends
           window.location.href = "/form?future=" + future + "&species=" + data.name;
         }
       });
-      document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.exitFullscreen) {
+      document.addEventListener("onwebkitfullscreenchange", () => {
+        if (!document.fullscreenElement || !document.exitFullscreen || !document.fullscreen || !document.fullscreenElement) {
           document.body.removeChild(videoElement);
           // Exit fullscreen when the video ends
           window.location.href = "/form?future=" + future + "&species=" + data.name;
