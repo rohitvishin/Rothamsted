@@ -41,7 +41,7 @@ export default function Contact(){
         </ul>
       </div>
       <div className="button-container">
-        <button>SIGN THE TREATY</button>
+        <button onClick={()=>window.location.href="/thankyou"}>SIGN THE TREATY</button>
       </div>
     </div>
   );
