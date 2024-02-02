@@ -34,7 +34,7 @@ export default function Contact(){
             species &&
             species.map((obj:any)=>{
                 return (
-                    <li>{obj.name}</li>
+                    <li key={obj.name}>{obj.name}</li>
                 )
             })
           }
