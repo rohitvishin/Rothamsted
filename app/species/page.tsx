@@ -24,7 +24,7 @@ const Species: FC = () => {
         }
       });
       document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.fullscreenElement) {
+        if (!document.webkitIsFullScreen) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
@@ -47,7 +47,7 @@ const Species: FC = () => {
       videoElement.controls = true;
       videoElement.autoplay = true;
   
-      // Event listener for exiting fullscreen
+      
       document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement) {
           document.body.removeChild(videoElement);
@@ -56,7 +56,7 @@ const Species: FC = () => {
         }
       });
       document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.fullscreenElement) {
+        if (!document.webkitIsFullScreen) {
           document.body.removeChild(videoElement);
           // Exit fullscreen when the video ends
           window.location.href = "/form?future=" + future + "&species=" + data.name;
