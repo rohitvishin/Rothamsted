@@ -63,6 +63,7 @@ export default function Form() {
           HEAR FROM THE ALTERNATIVE FUTURE
         </p>
         <p
+        onClick={()=>window.location.href='/species'}
           style={{
             backgroundImage: `url("rothamsted/gradient.png")`,
             borderRadius: "10px",
@@ -73,6 +74,7 @@ export default function Form() {
           CONNECT WITH ANOTHER SPECIES
         </p>
         <p
+        onClick={()=>window.location.href='/contact'}
           style={{
             backgroundImage: `url("rothamsted/gradient.png")`,
             marginTop: "20px",
