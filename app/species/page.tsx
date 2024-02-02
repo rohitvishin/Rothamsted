@@ -24,7 +24,7 @@ const Species: FC = () => {
         }
       });
       document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.webkitIsFullScreen) {
+        if (!document.exitFullscreen) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
@@ -56,7 +56,7 @@ const Species: FC = () => {
         }
       });
       document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.webkitIsFullScreen) {
+        if (!document.exitFullscreen) {
           document.body.removeChild(videoElement);
           // Exit fullscreen when the video ends
           window.location.href = "/form?future=" + future + "&species=" + data.name;
