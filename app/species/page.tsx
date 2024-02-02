@@ -6,7 +6,7 @@ import { speciesList } from "../constant/species";
 
 const Species: FC = () => {
   const [species, setSpecies] = useState<any>(null);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const playIntro = (species: any) => {
     if (species !== null) {
       const videoElement = document.createElement("video");
@@ -23,6 +23,12 @@ const Species: FC = () => {
           handleVideoEnd();
         }
       });
+      document.addEventListener("webkitfullscreenchange", () => {
+        if (!document.fullscreenElement) {
+          document.body.removeChild(videoElement);
+          handleVideoEnd();
+        }
+      });
 
       document.body.appendChild(videoElement);
 
@@ -31,11 +37,7 @@ const Species: FC = () => {
       });
     }
   };
-  useEffect(() => {
-    console.log(showModal)
-  }, [showModal])
-  
-  const handleOverlayClick = (side: any, future: string, data: any) => {
+  const handleClick = (side: any, future: string, data: any) => {
     console.log(side);
     if (data !== null && side !== null) {
       const videoElement = document.createElement("video");
@@ -47,6 +49,13 @@ const Species: FC = () => {
   
       // Event listener for exiting fullscreen
       document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+          document.body.removeChild(videoElement);
+          // Exit fullscreen when the video ends
+          window.location.href = "/form?future=" + future + "&species=" + data.name;
+        }
+      });
+      document.addEventListener("webkitfullscreenchange", () => {
         if (!document.fullscreenElement) {
           document.body.removeChild(videoElement);
           // Exit fullscreen when the video ends
@@ -93,12 +102,12 @@ const Species: FC = () => {
             style={{
               borderRadius: "15px",
               backgroundImage: `url("./rothamsted/gradient.png")`,
-              position: "relative",
             }}
           >
             <img
               src={species.image}
               alt={species.name}
+              onClick={() => playIntro(species)}
               style={{
                 cursor: "pointer",
                 height: "200px",
@@ -106,27 +115,6 @@ const Species: FC = () => {
                 borderRadius: "10px",
               }}
             />
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <button
-                onClick={() => playIntro(species)}
-                style={{
-                  fontSize: "24px",
-                  backgroundColor: "transparent",
-                  border: "none",
-                  color: "#fff",
-                  cursor: "pointer",
-                }}
-              >
-                ▶️ Play
-              </button>
-            </div>
             <p>TAP TO KNOW MORE</p>
           </div>
           <Modal
@@ -139,7 +127,7 @@ const Species: FC = () => {
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
                   className="text-center mb-3"
-                  onClick={() => handleOverlayClick(species.bright, "bright", species)}
+                  onClick={() => handleClick(species.bright, "bright", species)}
                   style={{
                     borderRadius: 10,
                     backgroundColor: "#fff",
@@ -153,7 +141,7 @@ const Species: FC = () => {
                 <hr />
                 <div
                   className="text-center"
-                  onClick={() => handleOverlayClick(species.dark, "dark", species)}
+                  onClick={() => handleClick(species.dark, "dark", species)}
                   style={{
                     borderRadius: 10,
                     backgroundColor: "#fff",
