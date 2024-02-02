@@ -17,17 +17,12 @@ const Species = () => {
       videoElement.controls = true;
       videoElement.autoplay = true;
       const handleFullscreenChange = () => {
-        const fullscreenElement =
-          document.fullscreenElement ||
-          document.webkitFullscreenElement ||
-          document.mozFullScreenElement ||
-          document.webkitIsFullScreen ||
-          document.msFullscreenElement;
-      
-        if (!fullscreenElement) {
+        if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
+        } else {
           document.body.removeChild(videoElement);
           handleVideoEnd();
-        }
+          //do whatever you want on fullscreen close, like pause or mute
+      }
       };
       
       document.addEventListener("fullscreenchange", handleFullscreenChange);
