@@ -27,8 +27,8 @@ const Species = () => {
       };
       
       document.addEventListener("fullscreenchange", handleFullscreenChange);
-      document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-      document.addEventListener("webkitendfullscreen", handleFullscreenChange);
+      videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
       document.addEventListener("mozfullscreenchange", handleFullscreenChange);
       document.addEventListener("MSFullscreenChange", handleFullscreenChange);
       document.body.appendChild(videoElement);
