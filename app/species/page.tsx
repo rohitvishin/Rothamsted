@@ -6,7 +6,7 @@ import { speciesList } from "../constant/species";
 
 const Species: FC = () => {
   const [species, setSpecies] = useState<any>(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const playIntro = (species: any) => {
     if (species !== null) {
       const videoElement = document.createElement("video");
