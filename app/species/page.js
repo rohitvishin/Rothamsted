@@ -24,7 +24,7 @@ const Species = () => {
         }
       });
 
-      document.addEventListener("webkitExitFullscreen", () => {
+      document.addEventListener("webkitfullscreenchange", () => {
         document.body.removeChild(videoElement);
         handleVideoEnd();
       });
