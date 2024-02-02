@@ -19,7 +19,6 @@ const Species = () => {
       const handleFullscreenChange = () => {
         if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
         } else {
-          window.location.href = `/home`;
           document.body.removeChild(videoElement);
           handleVideoEnd();
           //do whatever you want on fullscreen close, like pause or mute
@@ -49,29 +48,19 @@ const Species = () => {
       videoElement.controls = true;
       videoElement.autoplay = true;
 
-      document.addEventListener("fullscreenchange", () => {
-        if (
-          !document.fullscreenElement ||
-          !document.exitFullscreen ||
-          !document.fullscreen ||
-          !document.fullscreenElement
-        ) {
+      const handleFullscreenChange = () => {
+        if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
+        } else {
           document.body.removeChild(videoElement);
           window.location.href = `/form?future=${future}&species=${data.name}`;
-        }
-      });
-
-      document.addEventListener("onwebkitfullscreenchange", () => {
-        if (
-          !document.fullscreenElement ||
-          !document.exitFullscreen ||
-          !document.fullscreen ||
-          !document.fullscreenElement
-        ) {
-          document.body.removeChild(videoElement);
-          window.location.href = `/form?future=${future}&species=${data.name}`;
-        }
-      });
+          //do whatever you want on fullscreen close, like pause or mute
+      }
+      };
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
+      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
       document.body.appendChild(videoElement);
 
