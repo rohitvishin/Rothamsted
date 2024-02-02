@@ -21,6 +21,7 @@ const Species = () => {
           document.fullscreenElement ||
           document.webkitFullscreenElement ||
           document.mozFullScreenElement ||
+          document.webkitIsFullScreen ||
           document.msFullscreenElement;
       
         if (!fullscreenElement) {
@@ -31,6 +32,7 @@ const Species = () => {
       
       document.addEventListener("fullscreenchange", handleFullscreenChange);
       document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.addEventListener("webkitendfullscreen", handleFullscreenChange);
       document.addEventListener("mozfullscreenchange", handleFullscreenChange);
       document.addEventListener("MSFullscreenChange", handleFullscreenChange);
       document.body.appendChild(videoElement);
