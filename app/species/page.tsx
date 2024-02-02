@@ -1,23 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { FC, useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { speciesList } from "../constant/species";
-import MyModal from "../constant/MyModal";
 
-
-export default function Species() {
+const Species: FC = () => {
   const [species, setSpecies] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * speciesList.data.length);
-    const randomSpecies = speciesList.data[randomIndex];
-    setSpecies(randomSpecies);
-  }, []);
-
-  const handleVideoEnd = () => {
-    setShowModal(true); // Show the modal when the video ends
-  };
-
-  const handleClick = () => {
+  const playIntro = (species: any) => {
     if (species !== null) {
       const videoElement = document.createElement("video");
       videoElement.src = species.intro;
@@ -26,13 +16,10 @@ export default function Species() {
       videoElement.controls = true;
       videoElement.autoplay = true;
 
-      videoElement.addEventListener("ended", handleVideoEnd);
-
       // Event listener for exiting fullscreen
       document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement) {
           document.body.removeChild(videoElement);
-          // Exit fullscreen when the video ends
           handleVideoEnd();
         }
       });
@@ -43,6 +30,46 @@ export default function Species() {
         console.error("Error attempting to enable fullscreen", err);
       });
     }
+  };
+  const handleClick = (side: any, future: string, data: any) => {
+    console.log(side);
+    if (side !== null) {
+      const videoElement = document.createElement("video");
+      videoElement.src = side;
+      videoElement.height = window.innerHeight;
+      videoElement.width = window.innerWidth;
+      videoElement.controls = true;
+      videoElement.autoplay = true;
+
+      // Event listener for exiting fullscreen
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+          document.body.removeChild(videoElement);
+          // Exit fullscreen when the video ends
+          window.location.href =
+            "/form?future=" + future + "&species=" + data.name;
+        }
+      });
+
+      document.body.appendChild(videoElement);
+
+      videoElement.requestFullscreen().catch((err) => {
+        console.error("Error attempting to enable fullscreen", err);
+      });
+    }
+  };
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * speciesList.data.length);
+    const randomSpecies = speciesList.data[randomIndex];
+    setSpecies(randomSpecies);
+  }, []);
+
+  const handleVideoEnd = () => {
+    setShowModal(true); // Show the modal when the video ends
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   return (
@@ -61,34 +88,78 @@ export default function Species() {
         <>
           <div
             style={{
-              borderRadius:'15px',
+              borderRadius: "15px",
               backgroundImage: `url("./rothamsted/gradient.png")`,
             }}
           >
             <img
               src={species.image}
               alt={species.name}
-              onClick={handleClick}
+              onClick={() => playIntro(species)}
               style={{
                 cursor: "pointer",
                 height: "200px",
-                padding:'20px',
+                padding: "20px",
                 borderRadius: "10px",
               }}
             />
             <p>TAP TO KNOW MORE</p>
           </div>
-          <MyModal
-            showModal={showModal}
-            data={species}
-            video1={species.bright}
-            video2={species.dark}
-            handleClose={() => setShowModal(false)}
-          />
+          <Modal
+            className="bg-img"
+            show={showModal}
+            onHide={handleModalClose}
+            centered
+          >
+            <Modal.Body>
+              <div className="d-flex flex-column align-items-center justify-content-center">
+                <div
+                  className="text-center mb-3"
+                  onClick={() => handleClick(species.bright, "bright", species)}
+                  style={{
+                    borderRadius: 10,
+                    backgroundColor: "#fff",
+                    padding: 10,
+                    width: "90%",
+                  }}
+                >
+                  <h2>Bright future</h2>
+                  <p>We are from the bright future</p>
+                </div>
+                <hr />
+                <div
+                  className="text-center"
+                  onClick={() => handleClick(species.dark, "dark", species)}
+                  style={{
+                    borderRadius: 10,
+                    backgroundColor: "#fff",
+                    padding: 10,
+                    width: "90%",
+                  }}
+                >
+                  <h2>Dark future</h2>
+                  <p>We are from the dark future</p>
+                </div>
+              </div>
+            </Modal.Body>
+            <style>
+              {`
+                .bg-img{
+                  background-image: url("rothamsted/gradient.png");
+                }
+                .modal-content {
+                  background-color: rgba(255, 255, 255, 0);
+                  border: none;
+                }
+              `}
+            </style>
+          </Modal>
         </>
       ) : (
         <p>Loading..</p>
       )}
     </div>
   );
-}
+};
+
+export default Species;
