@@ -16,19 +16,23 @@ const Species = () => {
       videoElement.width = window.innerWidth;
       videoElement.controls = true;
       videoElement.autoplay = true;
-
-      document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
+      const handleFullscreenChange = () => {
+        const fullscreenElement =
+          document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement;
+      
+        if (!fullscreenElement) {
           document.body.removeChild(videoElement);
           handleVideoEnd();
         }
-      });
-
-      document.addEventListener("webkitfullscreenchange", () => {
-        document.body.removeChild(videoElement);
-        handleVideoEnd();
-      });
-
+      };
+      
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.addEventListener("MSFullscreenChange", handleFullscreenChange);
       document.body.appendChild(videoElement);
 
       videoElement.requestFullscreen().catch((err) => {
