@@ -19,6 +19,7 @@ const Species = () => {
       const handleFullscreenChange = () => {
         if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
         } else {
+          window.location.href = `/home`;
           document.body.removeChild(videoElement);
           handleVideoEnd();
           //do whatever you want on fullscreen close, like pause or mute
