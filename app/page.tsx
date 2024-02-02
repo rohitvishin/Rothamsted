@@ -1,31 +1,41 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+
 export default function Landing() {
   const router = useRouter();
-  const [Headphone, setHeadphone] = useState(false);
+  const [headphone, setHeadphone] = useState(false);
+
   const camera = async () => {
     try {
-      const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "environment" },
-      });
-      setTimeout(() => {
-        setHeadphone(true);
-      }, 3000);
+      const mediaDevices = navigator.mediaDevices;
+      if (mediaDevices && mediaDevices.getUserMedia) {
+        const newStream = await mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+        });
+      } else {
+        console.error("getUserMedia is not supported on this browser");
+        // Handle unsupported feature or provide alternative
+      }
     } catch (error) {
       console.error("Error accessing camera:", error);
 
       // Check if the error is due to user denying camera access
       if ((error as any).name === "NotAllowedError") {
-        alert("camera permission is mendatory");
+        alert("Camera permission is mandatory");
       }
     }
+    setTimeout(() => {
+      setHeadphone(true);
+    }, 3000);
   };
+
   useEffect(() => {
     setTimeout(() => {
       camera();
     }, 1000);
-  }, [Headphone]);
+  }, [headphone]);
+
   if (typeof window !== "undefined") {
     if (window.innerWidth <= 768) {
       return (
@@ -40,7 +50,7 @@ export default function Landing() {
             justifyContent: "center",
           }}
         >
-          {Headphone && (
+          {headphone && (
             <div
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.7)",
@@ -56,8 +66,8 @@ export default function Landing() {
                   padding: "30px",
                   textAlign: "end",
                 }}
-                onClick={()=>{
-                  return router.push('/home')
+                onClick={() => {
+                  return router.push("/home");
                 }}
               >
                 Skip
@@ -90,7 +100,7 @@ export default function Landing() {
     } else {
       return (
         <>
-          <h2>Pls use mobile</h2>
+          <h2>Please use a mobile device</h2>
         </>
       );
     }
