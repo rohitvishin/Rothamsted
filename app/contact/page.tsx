@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { speciesList } from "../constant/species";
-const Contact = () => {
+export default function Contact(){
     const [species, setspecies] = useState<any | null>(null);
     useEffect(() => {
       setspecies(speciesList.data);
@@ -46,5 +46,3 @@ const Contact = () => {
     </div>
   );
 };
-
-export default Contact;
