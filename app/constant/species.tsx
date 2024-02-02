@@ -32,7 +32,7 @@ export const speciesList = {
     },
     {
       name: "HERON",
-      image: "species/Heron.png",
+      image: "species/HERON.png",
       intro: "video/species/Sc_Heron.mp4",
       bright: "video/species/RB_heron.mp4",
       dark: "video/species/EA_Heron.mp4",
@@ -46,7 +46,7 @@ export const speciesList = {
     },
     {
       name: "WHEAT",
-      image: "species/Wheat.png",
+      image: "species/WHEAT.png",
       intro: "video/species/Sc_Wheat.mp4",
       bright: "video/species/RB_wheat.mp4",
       dark: "video/species/EA_Wheat.mp4",
