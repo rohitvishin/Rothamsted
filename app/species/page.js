@@ -24,16 +24,9 @@ const Species = () => {
         }
       });
 
-      document.addEventListener("webkitfullscreenchange", () => {
-        if (
-          !document.fullscreenElement &&
-          !document.webkitFullscreenElement &&
-          !document.mozFullScreenElement &&
-          !document.msFullscreenElement
-        ) {
-          document.body.removeChild(videoElement);
-          handleVideoEnd();
-        }
+      document.addEventListener("webkitExitFullscreen", () => {
+        document.body.removeChild(videoElement);
+        handleVideoEnd();
       });
 
       document.body.appendChild(videoElement);
