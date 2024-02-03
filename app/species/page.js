@@ -7,7 +7,6 @@ import { speciesList } from "../constant/species";
 const Species = () => {
   const [species, setSpecies] = useState(null)
   const [showModal, setShowModal] = useState(false);
-
   const params = useParams();
   const searchParams = useSearchParams();
 
@@ -17,17 +16,16 @@ const Species = () => {
       ...params,
     }),
     [params, searchParams]
-  );  
-  useEffect(() => {
-    const spec = oldQueries.name;
+  ); 
+  const playIntro = (name) => {
+    const spec = name;
     const speciesName = speciesList.data.find((obj) => obj.name === spec);
     if (speciesName) {
       setSpecies(speciesName);
-      const playIntro = (species) => {
-        console.log(species);
-        if (species !== null) {
+        console.log(speciesName);
+        if (speciesName !== null) {
           const videoElement = document.createElement("video");
-          videoElement.src = species.intro;
+          videoElement.src = speciesName.intro;
           videoElement.height = window.innerHeight;
           videoElement.width = window.innerWidth;
           videoElement.controls = true;
@@ -66,13 +64,15 @@ const Species = () => {
           });
         }
       };
-
-      playIntro(speciesName);
       console.log(spec);
     }
-    return () => {
-    };
-  }, []);
+    useEffect(() => {
+      if(oldQueries.name !==null){
+        playIntro(oldQueries.name);
+      }
+    }, [oldQueries.name])
+    
+  
   const handleClick = (side, future, data) => {
     console.log(side);
     if (data !== null && side !== null) {
