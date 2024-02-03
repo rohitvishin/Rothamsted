@@ -9,16 +9,6 @@ const Species = () => {
   const [showModal, setShowModal] = useState(false);
   const searchParams = useSearchParams();
   const oldQueries = searchParams.get('name');
-  const playIntro = (name) => {
-    return <p>{name}</p>
-  }
-  useEffect(() => {
-    
-    if(oldQueries !==null){
-      console.log(oldQueries)
-      playIntro(oldQueries);
-    }
-  }, [oldQueries])
     
   return <p>{oldQueries}</p>
 }
