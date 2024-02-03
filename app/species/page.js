@@ -6,18 +6,44 @@ import { speciesList } from "../constant/species";
 const Species = () => {
   const [species, setSpecies] = useState(null)
   const [showModal, setShowModal] = useState(false);
-  const playIntro = (name) => {
-    const speciesName = speciesList.data.find((obj) => obj.name === name);
-    
-  }
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const oldQueries = urlParams.get('name');
-    if(oldQueries !==null){
-      console.log(oldQueries)
-      playIntro(oldQueries);
+  const videoElement = document.createElement("video");
+  videoElement.src = 'video/species/Sc_Bee.mp4';
+  videoElement.height = window.innerHeight;
+  videoElement.width = window.innerWidth;
+  videoElement.controls = true;
+  videoElement.autoplay = true;
+
+  const handleFullscreenChange = () => {
+    if (
+      document.fullScreenElement ||
+      document.webkitIsFullScreen == true ||
+      document.mozFullScreen ||
+      document.msFullscreenElement
+    ) {
+    } else {
+      document.body.removeChild(videoElement);
+      handleVideoEnd();
+      // Do whatever you want on fullscreen close, like pause or mute
     }
-  }, [])  
+  };
+
+  document.addEventListener("fullscreenchange", handleFullscreenChange);
+  videoElement.addEventListener(
+    "webkitfullscreenchange",
+    handleFullscreenChange
+  );
+  videoElement.addEventListener(
+    "webkitendfullscreen",
+    handleFullscreenChange
+  );
+  document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+  document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+  document.body.appendChild(videoElement);
+
+  videoElement.requestFullscreen().catch((err) => {
+    console.error("Error attempting to enable fullscreen", err);
+  });
   const handleClick = (side, future, data) => {
     console.log(side);
     if (data !== null && side !== null) {
