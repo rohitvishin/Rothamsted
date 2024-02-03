@@ -9,14 +9,7 @@ const Species = () => {
   const [showModal, setShowModal] = useState(false);
   const params = useParams();
   const searchParams = useSearchParams();
-
-  const oldQueries = useMemo(
-    () => ({
-      ...Object.fromEntries(searchParams?.entries() ?? []),
-      ...params,
-    }),
-    [params, searchParams]
-  ); 
+  const oldQueries = searchParams.get('name');
   const playIntro = (name) => {
     const spec = name;
     const speciesName = speciesList.data.find((obj) => obj.name === spec);
@@ -67,10 +60,11 @@ const Species = () => {
       console.log(spec);
     }
     useEffect(() => {
-      if(oldQueries.name !==null){
-        playIntro(oldQueries.name);
+      console.log(oldQueries)
+      if(oldQueries !==null){
+        playIntro(oldQueries);
       }
-    }, [oldQueries.name])
+    }, [oldQueries])
     
   
   const handleClick = (side, future, data) => {
