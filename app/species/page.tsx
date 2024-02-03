@@ -15,12 +15,14 @@ const Species: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const extendedDocument = document as ExtendedDocument;
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const oldQueries = urlParams.get("name");
 
-  if (typeof window === 'undefined') {
-    return(
-      <p>not support</p>
-    )
-  }
+    if (oldQueries !== null && typeof window !== 'undefined') {
+      playIntro(oldQueries);
+    }
+  }, []);
 
   const playIntro = (name: string) => {
     
@@ -75,14 +77,7 @@ const Species: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const oldQueries = urlParams.get("name");
-
-    if (oldQueries !== null) {
-      playIntro(oldQueries);
-    }
-  }, []);
+ 
 
   const handleClick = (side: string, future: string, data: any) => {
     if (data !== null && side !== null) {
@@ -137,7 +132,7 @@ const Species: React.FC = () => {
   const handleModalClose = () => {
     setShowModal(false);
   };
-
+  if(typeof window !== 'undefined')
   return (
     <div
       style={{
@@ -209,6 +204,8 @@ const Species: React.FC = () => {
       )}
     </div>
   );
+  else
+  return <p>not supported</p>
 };
 
 export default Species;
