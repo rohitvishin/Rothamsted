@@ -1,25 +1,25 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-
+import "../camera.css";
+import { speciesList } from "../constant/species";
+import { useRouter } from "next/navigation";
 export default function Camera() {
+  const router = useRouter();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const overlayRef = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
+  const overlayVideo = useRef<HTMLVideoElement | null>(null);
+  const overlayImg = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isBarcode, setIsBarcode] = useState(false);
   const [isTapON, setIsTapON] = useState(false);
+  const [randomSpecies, setRandomSpecies] = useState(false);
+  const [species, setSpecies] = useState<any>(null);
 
   useEffect(() => {
-    if (isTapON === true) {
-      setTimeout(() => {
-        setIsTapON(false);
-      }, 2000);
-      setTimeout(() => {
-        window.location.href="/species";
-      }, 4000);
-    }
-  }, [isTapON]);
-
+    const randomIndex = Math.floor(Math.random() * speciesList.data.length);
+    const randomSpecies = speciesList.data[randomIndex];
+    setSpecies(randomSpecies);
+  }, []);
   const startCamera = async () => {
     setIsConnecting(true); // Set to true when starting the camera connection
     try {
@@ -34,7 +34,6 @@ export default function Camera() {
         setTimeout(() => {
           setIsConnecting(false);
           setIsTapON(true);
-          setIsBarcode(true);
         }, 3000);
       }
     } catch (error) {
@@ -57,7 +56,16 @@ export default function Camera() {
       setStream(null);
     }
   };
-
+  const handleCameraTap = () => {
+    // Handle tap on camera feed
+    setIsTapON(false);
+    console.log("Camera tapped, open scanner!");
+    setIsBarcode(true);
+    setTimeout(() => {
+      setIsBarcode(false);
+      setRandomSpecies(true);
+    }, 4000);
+  };
   useEffect(() => {
     startCamera();
 
@@ -71,8 +79,8 @@ export default function Camera() {
 
     if (!isConnecting) {
       hideTimeout = setTimeout(() => {
-        if (overlayRef.current) {
-          overlayRef.current.style.display = "none";
+        if (overlayImg.current) {
+          overlayImg.current.style.display = "none";
         }
       }, 100);
     }
@@ -83,79 +91,77 @@ export default function Camera() {
   }, [isConnecting]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        style={{ width: "100%", height: "100%" }}
-      />
-
-      {isConnecting && (
+    <div className="main">
+      {randomSpecies ===true ? (
         <>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(255, 255, 255, 0.5)", // White with 50% transparency
-              pointerEvents: "none",
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            style={{ width: "100%", height: "100%" }}
+            onClick={() => {
+              return router.push("/species?name=" + species.name);
             }}
-          >
+          />
+          <div className="connecting">
             <img
-              ref={overlayRef}
-              src="dial-over.png" // Replace with the URL of your transparent image
-              alt="Overlay"
+              src={species.image}
+              alt={species.name}
+              className="overlayImage"
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "35%",
-                height: "20%",
-                pointerEvents: "none",
+                cursor: "pointer",
+                height: "200px",
+                padding: "20px",
+                borderRadius: "10px",
+                backgroundColor:'#fff'
               }}
             />
+            <p className="connectingText">TAP TO KNOW MORE</p>
           </div>
-          <p
-            style={{
-              position: "absolute",
-              top: "60%",
-              paddingTop: 80,
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              color: "black",
-            }}
-          >
-            Connecting to Sentience Dial...
-          </p>
         </>
-      )}
-      
+      ) : (
+        <>
+          <video
+            onClick={handleCameraTap}
+            onTouchStart={handleCameraTap}
+            ref={videoRef}
+            autoPlay
+            playsInline
+            style={{ width: "100%", height: "100%" }}
+          />
 
-      {isTapON && (
-        <p
-          style={{
-            position: "absolute",
-            top: "60%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "black",
-            backgroundColor: "yellow",
-          }}
-        >
-          Tap anywhere to scan the environment..
-        </p>
+          {isConnecting && (
+            <>
+              <div className="connecting">
+                <img
+                  ref={overlayImg}
+                  src="dial-over.png" // Replace with the URL of your transparent image
+                  alt="Overlay"
+                  className="overlayImage"
+                />
+              </div>
+              <p className="connectingText">Connecting to Sentience Dial...</p>
+            </>
+          )}
+
+          {isTapON && (
+            <p className="tapOnText">Tap anywhere to scan the environment..</p>
+          )}
+
+          {isBarcode && (
+            <div className="barCode">
+              <video
+                ref={overlayVideo}
+                autoPlay
+                playsInline
+                muted
+                loop
+                src="video/welcome.mp4"
+                className="videoOverlay"
+              />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

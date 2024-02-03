@@ -3,41 +3,69 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { speciesList } from "../constant/species";
-
 const Species = () => {
-  const [species, setSpecies] = useState(null);
+  const [species, setSpecies] = useState(null)
   const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const spec = urlParams.get("name");
 
-  const playIntro = (species) => {
-    if (species !== null) {
-      const videoElement = document.createElement("video");
-      videoElement.src = species.intro;
-      videoElement.height = window.innerHeight;
-      videoElement.width = window.innerWidth;
-      videoElement.controls = true;
-      videoElement.autoplay = true;
-      const handleFullscreenChange = () => {
-        if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
-        } else {
-          document.body.removeChild(videoElement);
-          handleVideoEnd();
-          //do whatever you want on fullscreen close, like pause or mute
-      }
+    const speciesName = speciesList.data.find((obj) => obj.name === spec);
+
+    if (speciesName) {
+      setSpecies(speciesName);
+
+      const playIntro = (species) => {
+        console.log(species);
+        if (species !== null) {
+          const videoElement = document.createElement("video");
+          videoElement.src = species.intro;
+          videoElement.height = window.innerHeight;
+          videoElement.width = window.innerWidth;
+          videoElement.controls = true;
+          videoElement.autoplay = true;
+
+          const handleFullscreenChange = () => {
+            if (
+              document.fullScreenElement ||
+              document.webkitIsFullScreen == true ||
+              document.mozFullScreen ||
+              document.msFullscreenElement
+            ) {
+            } else {
+              document.body.removeChild(videoElement);
+              handleVideoEnd();
+              // Do whatever you want on fullscreen close, like pause or mute
+            }
+          };
+
+          document.addEventListener("fullscreenchange", handleFullscreenChange);
+          videoElement.addEventListener(
+            "webkitfullscreenchange",
+            handleFullscreenChange
+          );
+          videoElement.addEventListener(
+            "webkitendfullscreen",
+            handleFullscreenChange
+          );
+          document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+          document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+          document.body.appendChild(videoElement);
+
+          videoElement.requestFullscreen().catch((err) => {
+            console.error("Error attempting to enable fullscreen", err);
+          });
+        }
       };
-      
-      document.addEventListener("fullscreenchange", handleFullscreenChange);
-      videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-      videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
-      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-      document.addEventListener("MSFullscreenChange", handleFullscreenChange);
-      document.body.appendChild(videoElement);
 
-      videoElement.requestFullscreen().catch((err) => {
-        console.error("Error attempting to enable fullscreen", err);
-      });
+      playIntro(speciesName);
+      console.log(spec);
     }
-  };
-
+    return () => {
+    };
+  }, []);
   const handleClick = (side, future, data) => {
     console.log(side);
     if (data !== null && side !== null) {
@@ -70,12 +98,6 @@ const Species = () => {
     }
   };
 
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * speciesList.data.length);
-    const randomSpecies = speciesList.data[randomIndex];
-    setSpecies(randomSpecies);
-  }, []);
-
   const handleVideoEnd = () => {
     setShowModal(true);
   };
@@ -98,25 +120,6 @@ const Species = () => {
     >
       {species ? (
         <>
-          <div
-            style={{
-              borderRadius: "15px",
-              backgroundImage: `url("./rothamsted/gradient.png")`,
-            }}
-          >
-            <img
-              src={species.image}
-              alt={species.name}
-              onClick={() => playIntro(species)}
-              style={{
-                cursor: "pointer",
-                height: "200px",
-                padding: "20px",
-                borderRadius: "10px",
-              }}
-            />
-            <p>TAP TO KNOW MORE</p>
-          </div>
           <Modal
             className="bg-img"
             show={showModal}
