@@ -20,8 +20,9 @@ const Species: React.FC = () => {
     const oldQueries = urlParams.get("name");
 
     if (oldQueries !== null && typeof window !== 'undefined') {
-      playIntro(oldQueries);
+      // playIntro(oldQueries);
     }
+    handleVideoEnd();
   }, []);
 
   const playIntro = (name: string) => {
