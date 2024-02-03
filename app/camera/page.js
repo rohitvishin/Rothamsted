@@ -199,7 +199,7 @@ export default function Camera() {
                 playsInline
                 muted
                 loop
-                src="video/welcome.mp4"
+                src="video/scanner.mov"
                 className="videoOverlay"
               />
             </div>
