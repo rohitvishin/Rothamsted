@@ -3,40 +3,37 @@ import { useState, useEffect, useRef } from "react";
 import "../camera.css";
 import { speciesList } from "../constant/species";
 import { useRouter } from "next/navigation";
-interface ExtendedDocument extends Document {
-  webkitFullscreenElement?: Element;
-  webkitIsFullScreen?: boolean;
-  mozFullScreen?: Element;
-  msFullscreenElement?:Element;
-}
+
 export default function Camera() {
   const router = useRouter();
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const overlayVideo = useRef<HTMLVideoElement | null>(null);
-  const overlayImg = useRef<HTMLImageElement | null>(null); // Reference to the overlay image element
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const videoRef = useRef(null);
+  const overlayVideo = useRef(null);
+  const overlayImg = useRef(null);
+  const [stream, setStream] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isBarcode, setIsBarcode] = useState(false);
   const [isTapON, setIsTapON] = useState(false);
   const [randomSpecies, setRandomSpecies] = useState(false);
-  const [species, setSpecies] = useState<any>(null);
-  const extendedDocument = document as ExtendedDocument;
+  const [species, setSpecies] = useState(null);
+
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * speciesList.data.length);
     const randomSpecie = speciesList.data[randomIndex];
     setSpecies(randomSpecie);
   }, []);
+
   const startCamera = async () => {
-    setIsConnecting(true); // Set to true when starting the camera connection
+    setIsConnecting(true);
+
     try {
-      const newStream: MediaStream = await navigator.mediaDevices.getUserMedia({
+      const newStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
       });
 
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
         setStream(newStream);
-        // Wait for 2 seconds and then hide the overlay image and the connecting text
+
         setTimeout(() => {
           setIsConnecting(false);
           setIsTapON(true);
@@ -45,9 +42,8 @@ export default function Camera() {
     } catch (error) {
       console.error("Error accessing camera:", error);
 
-      // Check if the error is due to user denying camera access
-      if ((error as any).name === "NotAllowedError") {
-        setIsConnecting(false); // Set to false if camera access is denied
+      if (error.name === "NotAllowedError") {
+        setIsConnecting(false);
       }
     }
   };
@@ -56,62 +52,63 @@ export default function Camera() {
     if (stream) {
       const tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
+
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
+
       setStream(null);
     }
   };
+
   const handleCameraTap = () => {
-    // Handle tap on camera feed
     setIsTapON(false);
     console.log("Camera tapped, open scanner!");
     setIsBarcode(true);
+
     setTimeout(() => {
       setIsBarcode(false);
       setRandomSpecies(true);
     }, 4000);
   };
-  const playVideo=()=>{
+
+  const playVideo = () => {
     const videoElement = document.createElement("video");
-          videoElement.src = species.intro;
-          videoElement.height = window.innerHeight;
-          videoElement.width = window.innerWidth;
-          videoElement.controls = true;
-          videoElement.autoplay = true;
+    videoElement.src = species.intro;
+    videoElement.height = window.innerHeight;
+    videoElement.width = window.innerWidth;
+    videoElement.controls = true;
+    videoElement.autoplay = true;
 
-          const handleFullscreenChange = () => {
-            if (
-              document.fullscreenElement ||
-              extendedDocument.webkitIsFullScreen == true ||
-              extendedDocument.mozFullScreen ||
-              extendedDocument.msFullscreenElement
-            ) {
-            } else {
-              document.body.removeChild(videoElement);
-              router.push("/species?name=" + species.name);
-              // Do whatever you want on fullscreen close, like pause or mute
-            }
-          };
+    const handleFullscreenChange = () => {
+      if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      ) {
+      } else {
+        document.body.removeChild(videoElement);
+        router.push("/species?name=" + species.name);
+      }
+    };
 
-          document.addEventListener("fullscreenchange", handleFullscreenChange);
-          videoElement.addEventListener(
-            "webkitfullscreenchange",
-            handleFullscreenChange
-          );
-          videoElement.addEventListener(
-            "webkitendfullscreen",
-            handleFullscreenChange
-          );
-          document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-          document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    videoElement.addEventListener(
+      "webkitfullscreenchange",
+      handleFullscreenChange
+    );
+    videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
-          document.body.appendChild(videoElement);
+    document.body.appendChild(videoElement);
 
-          videoElement.requestFullscreen().catch((err) => {
-            console.error("Error attempting to enable fullscreen", err);
-          });
-  }
+    videoElement.requestFullscreen().catch((err) => {
+      console.error("Error attempting to enable fullscreen", err);
+    });
+  };
+
   useEffect(() => {
     startCamera();
 
@@ -121,7 +118,7 @@ export default function Camera() {
   }, []);
 
   useEffect(() => {
-    let hideTimeout: NodeJS.Timeout;
+    let hideTimeout;
 
     if (!isConnecting) {
       hideTimeout = setTimeout(() => {
@@ -138,7 +135,7 @@ export default function Camera() {
 
   return (
     <div className="main">
-      {randomSpecies ===true ? (
+      {randomSpecies ? (
         <>
           <video
             ref={videoRef}
@@ -157,7 +154,7 @@ export default function Camera() {
                 height: "140px",
                 padding: "20px",
                 borderRadius: "10px",
-                backgroundColor:'#fff'
+                backgroundColor: "#fff",
               }}
             />
             <p className="connectingText">TAP TO KNOW MORE</p>
@@ -184,7 +181,9 @@ export default function Camera() {
                   className="overlayImage"
                 />
               </div>
-              <p className="connectingText">Connecting to Sentience Dial...</p>
+              <p className="connectingText">
+                Connecting to Sentience Dial...
+              </p>
             </>
           )}
 
