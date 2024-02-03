@@ -38,7 +38,7 @@ const Species: React.FC = () => {
         videoElement.width = window.innerWidth;
         videoElement.controls = true;
         videoElement.autoplay = true;
-
+        videoElement.setAttribute("playsinline", "");
         const handleFullscreenChange = () => {
           if (
             document.fullscreenElement ||
