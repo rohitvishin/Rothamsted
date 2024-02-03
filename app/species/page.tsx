@@ -1,51 +1,74 @@
-"use client"
-import "bootstrap/dist/css/bootstrap.min.css";
+'use client'
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { speciesList } from "../constant/species";
-const Species = () => {
-  const [species, setSpecies] = useState(null)
-  const [showModal, setShowModal] = useState(false);
-  const videoElement = document.createElement("video");
-  videoElement.src = 'video/species/Sc_Bee.mp4';
-  videoElement.height = window.innerHeight;
-  videoElement.width = window.innerWidth;
-  videoElement.controls = true;
-  videoElement.autoplay = true;
 
-  const handleFullscreenChange = () => {
-    if (
-      document.fullScreenElement ||
-      document.webkitIsFullScreen == true ||
-      document.mozFullScreen ||
-      document.msFullscreenElement
-    ) {
-    } else {
-      document.body.removeChild(videoElement);
-      handleVideoEnd();
-      // Do whatever you want on fullscreen close, like pause or mute
+const Species: React.FC = () => {
+  const [species, setSpecies] = useState<any>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const playIntro = (name: string) => {
+    const speciesName = speciesList.data.find((obj) => obj.name === name);
+
+    if (speciesName) {
+      setSpecies(speciesName);
+
+      if (speciesName !== null) {
+        const videoElement = document.createElement("video");
+        videoElement.src = speciesName.intro;
+        videoElement.height = window.innerHeight;
+        videoElement.width = window.innerWidth;
+        videoElement.controls = true;
+        videoElement.autoplay = true;
+
+        const handleFullscreenChange = () => {
+          if (
+            document.fullscreenElement ||
+            document.webkitIsFullScreen === true ||
+            document.mozFullScreen ||
+            document.msFullscreenElement
+          ) {
+          } else {
+            document.body.removeChild(videoElement);
+            handleVideoEnd();
+            // Do whatever you want on fullscreen close, like pause or mute
+          }
+        };
+
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+        videoElement.addEventListener(
+          "webkitfullscreenchange",
+          handleFullscreenChange
+        );
+        videoElement.addEventListener(
+          "webkitendfullscreen",
+          handleFullscreenChange
+        );
+        document.addEventListener(
+          "mozfullscreenchange",
+          handleFullscreenChange
+        );
+        document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+        document.body.appendChild(videoElement);
+
+        videoElement.requestFullscreen().catch((err) => {
+          console.error("Error attempting to enable fullscreen", err);
+        });
+      }
     }
   };
 
-  document.addEventListener("fullscreenchange", handleFullscreenChange);
-  videoElement.addEventListener(
-    "webkitfullscreenchange",
-    handleFullscreenChange
-  );
-  videoElement.addEventListener(
-    "webkitendfullscreen",
-    handleFullscreenChange
-  );
-  document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-  document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const oldQueries = urlParams.get("name");
 
-  document.body.appendChild(videoElement);
+    if (oldQueries !== null) {
+      playIntro(oldQueries);
+    }
+  }, []);
 
-  videoElement.requestFullscreen().catch((err) => {
-    console.error("Error attempting to enable fullscreen", err);
-  });
-  const handleClick = (side, future, data) => {
-    console.log(side);
+  const handleClick = (side: string, future: string, data: any) => {
     if (data !== null && side !== null) {
       const videoElement = document.createElement("video");
       videoElement.src = side;
@@ -55,17 +78,32 @@ const Species = () => {
       videoElement.autoplay = true;
 
       const handleFullscreenChange = () => {
-        if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
+        if (
+          document.fullScreenElement ||
+          document.webkitIsFullScreen === true ||
+          document.mozFullScreen ||
+          document.msFullscreenElement
+        ) {
         } else {
           document.body.removeChild(videoElement);
           window.location.href = `/form?future=${future}&species=${data.name}`;
-          //do whatever you want on fullscreen close, like pause or mute
-      }
+          // Do whatever you want on fullscreen close, like pause or mute
+        }
       };
+
       document.addEventListener("fullscreenchange", handleFullscreenChange);
-      videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-      videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
-      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      videoElement.addEventListener(
+        "webkitendfullscreen",
+        handleFullscreenChange
+      );
+      document.addEventListener(
+        "mozfullscreenchange",
+        handleFullscreenChange
+      );
       document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
       document.body.appendChild(videoElement);
@@ -108,7 +146,9 @@ const Species = () => {
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
                   className="text-center mb-3"
-                  onClick={() => handleClick(species.bright, "bright", species)}
+                  onClick={() =>
+                    handleClick(species.bright, "bright", species)
+                  }
                   style={{
                     borderRadius: 10,
                     backgroundColor: "#fff",
