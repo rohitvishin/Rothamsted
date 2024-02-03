@@ -20,9 +20,8 @@ const Species: React.FC = () => {
     const oldQueries = urlParams.get("name");
 
     if (oldQueries !== null && typeof window !== 'undefined') {
-      // playIntro(oldQueries);
+      playIntro(oldQueries);
     }
-    handleVideoEnd();
   }, []);
 
   const playIntro = (name: string) => {
@@ -39,7 +38,7 @@ const Species: React.FC = () => {
         videoElement.width = window.innerWidth;
         videoElement.controls = true;
         videoElement.autoplay = true;
-        videoElement.setAttribute("playsinline", "");
+
         const handleFullscreenChange = () => {
           if (
             document.fullscreenElement ||
