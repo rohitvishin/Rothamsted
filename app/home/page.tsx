@@ -1,14 +1,17 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+
 export default function Home() {
-  const [Loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   }, []);
-  if (Loader === true) {
+
+  if (loader) {
     return (
       <div className="loader-container">
         <img src="dial.png" alt="Loading" className="loader-image" />
@@ -19,6 +22,7 @@ export default function Home() {
       <div
         style={{
           backgroundImage: 'url("rothamsted/BH-H.png")',
+          backgroundSize: 'cover', // Add this line
           height: "100vh",
           display: "flex",
           flexDirection: "column",
@@ -26,11 +30,10 @@ export default function Home() {
         }}
       >
         <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', width: '100%' }}>
-  <Link href="/camera">
-    <img src="Dial_3D.png" style={{ height: 180,marginBottom:30 }} alt="Dial Image" />
-  </Link>
-</div>
-
+          <Link href="/camera">
+            <img src="Dial_3D.png" style={{ height: 180, marginBottom: 30 }} alt="Dial Image" />
+          </Link>
+        </div>
       </div>
     );
   }
