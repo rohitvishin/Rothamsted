@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from "react";
 import "../camera.css";
 import { speciesList } from "../constant/species";
 import { useRouter } from "next/navigation";
+interface ExtendedDocument extends Document {
+  webkitFullscreenElement?: Element;
+  webkitIsFullScreen?: boolean;
+  mozFullScreen?: Element;
+  msFullscreenElement?:Element;
+}
 export default function Camera() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -14,11 +20,11 @@ export default function Camera() {
   const [isTapON, setIsTapON] = useState(false);
   const [randomSpecies, setRandomSpecies] = useState(false);
   const [species, setSpecies] = useState<any>(null);
-
+  const extendedDocument = document as ExtendedDocument;
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * speciesList.data.length);
-    const randomSpecies = speciesList.data[randomIndex];
-    setSpecies(randomSpecies);
+    const randomSpecie = speciesList.data[randomIndex];
+    setSpecies(randomSpecie);
   }, []);
   const startCamera = async () => {
     setIsConnecting(true); // Set to true when starting the camera connection
@@ -66,6 +72,46 @@ export default function Camera() {
       setRandomSpecies(true);
     }, 4000);
   };
+  const playVideo=()=>{
+    const videoElement = document.createElement("video");
+          videoElement.src = species.intro;
+          videoElement.height = window.innerHeight;
+          videoElement.width = window.innerWidth;
+          videoElement.controls = true;
+          videoElement.autoplay = true;
+
+          const handleFullscreenChange = () => {
+            if (
+              document.fullscreenElement ||
+              extendedDocument.webkitIsFullScreen == true ||
+              extendedDocument.mozFullScreen ||
+              extendedDocument.msFullscreenElement
+            ) {
+            } else {
+              document.body.removeChild(videoElement);
+              router.push("/species?name=" + species.name);
+              // Do whatever you want on fullscreen close, like pause or mute
+            }
+          };
+
+          document.addEventListener("fullscreenchange", handleFullscreenChange);
+          videoElement.addEventListener(
+            "webkitfullscreenchange",
+            handleFullscreenChange
+          );
+          videoElement.addEventListener(
+            "webkitendfullscreen",
+            handleFullscreenChange
+          );
+          document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+          document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+          document.body.appendChild(videoElement);
+
+          videoElement.requestFullscreen().catch((err) => {
+            console.error("Error attempting to enable fullscreen", err);
+          });
+  }
   useEffect(() => {
     startCamera();
 
@@ -99,9 +145,7 @@ export default function Camera() {
             autoPlay
             playsInline
             style={{ width: "100%", height: "100%" }}
-            onClick={() => {
-              return router.push("/species?name=" + species.name);
-            }}
+            onClick={playVideo}
           />
           <div className="connecting">
             <img
@@ -110,7 +154,7 @@ export default function Camera() {
               className="overlayImage"
               style={{
                 cursor: "pointer",
-                height: "200px",
+                height: "140px",
                 padding: "20px",
                 borderRadius: "10px",
                 backgroundColor:'#fff'
