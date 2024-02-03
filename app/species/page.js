@@ -5,12 +5,9 @@ import { Modal } from "react-bootstrap";
 import { useSearchParams } from 'next/navigation'
 import { speciesList } from "../constant/species";
 const Species = () => {
-  const [species, setSpecies] = useState(null)
-  const [showModal, setShowModal] = useState(false);
-  const searchParams = useSearchParams();
-  const oldQueries = searchParams.get('name');
+
     
-  return <p>{oldQueries}</p>
+  return <p>test</p>
 }
 
 export default Species;
