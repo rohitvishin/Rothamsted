@@ -14,6 +14,14 @@ const Species: React.FC = () => {
   const [species, setSpecies] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
   const extendedDocument = document as ExtendedDocument;
+
+
+  if (typeof window === 'undefined') {
+    return(
+      <p>not support</p>
+    )
+  }
+
   const playIntro = (name: string) => {
     
     const speciesName = speciesList.data.find((obj) => obj.name === name);
