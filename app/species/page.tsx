@@ -3,11 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { speciesList } from "../constant/species";
 
+interface ExtendedDocument extends Document {
+  webkitFullscreenElement?: Element;
+  webkitIsFullScreen?: boolean;
+  mozFullScreen?: Element;
+  msFullscreenElement?:Element;
+}
+
 const Species: React.FC = () => {
   const [species, setSpecies] = useState<any>(null);
   const [showModal, setShowModal] = useState(false);
-
+  const extendedDocument = document as ExtendedDocument;
   const playIntro = (name: string) => {
+    
     const speciesName = speciesList.data.find((obj) => obj.name === name);
 
     if (speciesName) {
@@ -24,9 +32,9 @@ const Species: React.FC = () => {
         const handleFullscreenChange = () => {
           if (
             document.fullscreenElement ||
-            document.webkitIsFullScreen === true ||
-            document.mozFullScreen ||
-            document.msFullscreenElement
+            extendedDocument.webkitIsFullScreen === true ||
+            extendedDocument.mozFullScreen ||
+            extendedDocument.msFullscreenElement
           ) {
           } else {
             document.body.removeChild(videoElement);
@@ -79,10 +87,10 @@ const Species: React.FC = () => {
 
       const handleFullscreenChange = () => {
         if (
-          document.fullScreenElement ||
-          document.webkitIsFullScreen === true ||
-          document.mozFullScreen ||
-          document.msFullscreenElement
+          document.fullscreenElement ||
+          extendedDocument.webkitIsFullScreen === true ||
+          extendedDocument.mozFullScreen ||
+          extendedDocument.msFullscreenElement
         ) {
         } else {
           document.body.removeChild(videoElement);
