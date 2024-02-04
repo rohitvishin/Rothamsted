@@ -125,7 +125,7 @@ const Species = () => {
                   }}
                 >
                   <h2>Bright future</h2>
-                  <p>We're contacting you form a bright future..</p>
+                  <p>We are contacting you form a bright future..</p>
                 </div>
                 <hr />
                 <div
@@ -139,7 +139,7 @@ const Species = () => {
                   }}
                 >
                   <h2>Dark future</h2>
-                  <p>We're contacting you form a dark future..</p>
+                  <p>We are contacting you form a dark future..</p>
                 </div>
               </div>
             </Modal.Body>
