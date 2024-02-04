@@ -182,13 +182,15 @@ export default function Camera() {
                 />
               </div>
               <p className="connectingText">
-                Connecting to Sentience Dial...
+                CONNECTING TO SENTIENCE DIAL..
               </p>
             </>
           )}
 
           {isTapON && (
-            <p className="tapOnText">Tap anywhere to scan the environment..</p>
+            <div className="connecting">
+            <p className="tapOnText">TAP TO SCAN THE ENVIRONMENT</p>
+            </div>
           )}
 
           {isBarcode && (

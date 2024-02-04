@@ -31,7 +31,8 @@
     position: absolute;
     top: 60%;
     padding-top: 80px;
-    left: 50%;
+    font-size: 13px;
+    left: 40%;
     transform: translate(-50%, -50%);
     color: white;
   }
@@ -40,8 +41,8 @@
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: black;
-    background-color: yellow;
+    color: white;
+    font-size: 15px;
   }  
   .barCode {
     position: absolute;
