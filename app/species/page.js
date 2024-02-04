@@ -111,7 +111,7 @@ const Species = () => {
             <Modal.Body>
               <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginBottom:150,flexDirection:'column'}}>
               <h2>{finalFormattedDate}</h2>
-              <h1 style={{fontSize:'xxxx-large',fontWeight:'7000'}}>{hour}</h1>
+              <h1 style={{fontSize:45,fontWeight:'bold'}}>{hour}</h1>
               </div>
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
