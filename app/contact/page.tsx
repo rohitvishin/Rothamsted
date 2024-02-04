@@ -8,9 +8,8 @@ export default function Contact(){
     }, [])
     
   return (
-    <div style={{
+    <div className="background" style={{
         backgroundImage: 'url("rothamsted/gradient.png")',
-        height: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -41,7 +40,7 @@ export default function Contact(){
         </ul>
       </div>
       <div className="button-container">
-        <button onClick={()=>window.location.href="/thankyou"}>SIGN THE TREATY</button>
+        <button onClick={()=>window.location.href="/thankyou"} className="button">SIGN THE TREATY</button>
       </div>
     </div>
   );

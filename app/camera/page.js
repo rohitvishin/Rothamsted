@@ -69,7 +69,7 @@ export default function Camera() {
     setTimeout(() => {
       setIsBarcode(false);
       setRandomSpecies(true);
-    }, 4000);
+    }, 6000);
   };
 
   const playVideo = () => {
@@ -134,7 +134,8 @@ export default function Camera() {
   }, [isConnecting]);
 
   return (
-    <div className="main">
+    <div style={{width: "100vw",
+    height: "100vh",}}>
       {randomSpecies ? (
         <>
           <video
@@ -154,7 +155,6 @@ export default function Camera() {
                 height: "140px",
                 padding: "20px",
                 borderRadius: "10px",
-                backgroundColor: "#fff",
               }}
             />
             <p className="connectingText">TAP TO KNOW MORE</p>
@@ -168,7 +168,7 @@ export default function Camera() {
             ref={videoRef}
             autoPlay
             playsInline
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100vw", height: "100vh"}}
           />
 
           {isConnecting && (
@@ -176,7 +176,7 @@ export default function Camera() {
               <div className="connecting">
                 <img
                   ref={overlayImg}
-                  src="dial-over.png" // Replace with the URL of your transparent image
+                  src="Dial_Flat_Icon.gif" // Replace with the URL of your transparent image
                   alt="Overlay"
                   className="overlayImage"
                 />
@@ -193,13 +193,9 @@ export default function Camera() {
 
           {isBarcode && (
             <div className="barCode">
-              <video
+              <img
                 ref={overlayVideo}
-                autoPlay
-                playsInline
-                muted
-                loop
-                src="video/scanner.mov"
+                src="SentienceDial_ANM.gif"
                 className="videoOverlay"
               />
             </div>

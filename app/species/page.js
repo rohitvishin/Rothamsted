@@ -6,6 +6,35 @@ import { speciesList } from "../constant/species";
 const Species = () => {
   const [species, setSpecies] = useState(null)
   const [showModal, setShowModal] = useState(true);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000); // Update every second
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+  const dateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false,
+  };
+  
+  const staticYear = 2050;
+  const formattedDateTime = currentDateTime.toLocaleString('en-US', dateOptions);
+  const hour = currentDateTime.toLocaleString('en-US', options);
+
+  const finalFormattedDate = formattedDateTime.replace(
+    currentDateTime.getFullYear(),
+    staticYear
+  );
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -74,12 +103,16 @@ const Species = () => {
       {species ? (
         <>
           <Modal
-            className="bg-img"
+            className="bg-img background"
             show={showModal}
             onHide={handleModalClose}
             centered
           >
             <Modal.Body>
+              <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginBottom:150,flexDirection:'column'}}>
+              <h2>{finalFormattedDate}</h2>
+              <h1 style={{fontSize:'xxxx-large',fontWeight:'7000'}}>{hour}</h1>
+              </div>
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
                   className="text-center mb-3"
@@ -92,7 +125,7 @@ const Species = () => {
                   }}
                 >
                   <h2>Bright future</h2>
-                  <p>We are from the bright future</p>
+                  <p>We're contacting you form a bright future..</p>
                 </div>
                 <hr />
                 <div
@@ -106,7 +139,7 @@ const Species = () => {
                   }}
                 >
                   <h2>Dark future</h2>
-                  <p>We are from the dark future</p>
+                  <p>We're contacting you form a dark future..</p>
                 </div>
               </div>
             </Modal.Body>

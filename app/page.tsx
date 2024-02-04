@@ -47,6 +47,9 @@ export default function Landing() {
                 height: "100vh",
                 width: "100vw",
               }}
+              onClick={()=>{
+                return router.push('/home')
+              }}
             >
               <p
                 style={{
@@ -76,11 +79,11 @@ export default function Landing() {
                   src="/rothamsted/Headphone_Icon.png"
                   height={100}
                   width={100}
-                  style={{}}
+                  style={{paddingBottom:40}}
                   alt="Headphone"
                 />
                 <p style={{ color: "white" }}>
-                  THIS APP IS BETTER EXPERIENCED WITH HEADPHONES
+                  THIS APP IS BEST EXPERIENCED WITH HEADPHONES
                 </p>
               </div>
             </div>

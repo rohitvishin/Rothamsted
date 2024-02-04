@@ -22,7 +22,9 @@
   }
 }
 
-
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
 .loader-container {
   display: flex;
   justify-content: center;
@@ -124,30 +126,33 @@
   padding-top: 3rem;
   width: 100%;
 }
+.background{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
 
-button {
+.button {
+  width: 240px;
   display: inline-block;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  border: 1px solid #3676e8;
   background: #fff;
-  color: #000;
-  border-radius: 15px;
-  font-weight: 500;
+  border-radius: 10px;
   padding: 1rem;
-  font-size: 1.1rem;
-  font-family: "San Francisco Text", sans-serif;
   cursor: pointer;
-  letter-spacing: 0.01em;
 }
 
 input {
+  background-color: #f1f1f1;
   padding: 8px;
   margin: 10px;
   font-size: 16px;
   width: 100%;
-  border: 1px solid #ccc;
   border-radius: 10px;
   box-sizing: border-box;
 

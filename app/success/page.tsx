@@ -10,14 +10,16 @@ export default function Success() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent:'center',
+        margin:42,
+        textAlign:'center'
       }}
     >
       <p style={{ fontSize: "30px", fontWeight: "bold" }}>
         Success!
       </p>
       <img src="Check_Icon.png" style={{height:'100px',margin:30}}/>
-      <p>Thankyou for pledging</p>
-      <p></p>
+      <p style={{fontSize:20}}>Thankyou for pledging</p>
+      <p style={{fontSize:14}}>Your one small step can bring big changes in the future!</p>
     </div>
   );
 }

@@ -56,8 +56,10 @@ export default function Form() {
           onClick={playAlter}
           style={{
             backgroundImage: `url("rothamsted/gradient.png")`,
+            backgroundRepeat:'no-repeat',
+            backgroundSize:'cover',
             borderRadius: "10px",
-            padding: "10px",
+            padding: "12px",
           }}
         >
           HEAR FROM THE ALTERNATIVE FUTURE
@@ -68,6 +70,8 @@ export default function Form() {
             backgroundImage: `url("rothamsted/gradient.png")`,
             borderRadius: "10px",
             padding: "10px",
+            backgroundRepeat:'no-repeat',
+            backgroundSize:'cover',
             marginTop: "20px",
           }}
         >
@@ -76,6 +80,8 @@ export default function Form() {
         <p
         onClick={()=>window.location.href='/contact'}
           style={{
+            backgroundRepeat:'no-repeat',
+            backgroundSize:'cover',
             backgroundImage: `url("rothamsted/gradient.png")`,
             marginTop: "20px",
             borderRadius: "10px",

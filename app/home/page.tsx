@@ -3,38 +3,48 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [loader, setLoader] = useState(true);
+  const [showText, setshowText] = useState(false);
+  const audioUrl = "rothamsted/welcome.mp3"; // replace with the actual audio file URL
 
   useEffect(() => {
+    const audio = new Audio(audioUrl);
+    audio.play();
     setTimeout(() => {
-      setLoader(false);
-    }, 2000);
-  }, []);
-
-  if (loader) {
-    return (
-      <div className="loader-container">
-        <img src="dial.png" alt="Loading" className="loader-image" />
-      </div>
-    );
-  } else {
-    return (
-      <div
-        style={{
-          backgroundImage: 'url("rothamsted/BH-H.png")',
-          backgroundSize: 'cover', // Add this line
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', width: '100%' }}>
-          <Link href="/camera">
-            <img src="Dial_3D.png" style={{ height: 180, marginBottom: 30 }} alt="Dial Image" />
-          </Link>
-        </div>
-      </div>
-    );
-  }
+      setshowText(true);
+    }, 38000);
+    return () => {
+      // Cleanup audio when component unmounts
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, [audioUrl]);
+  return (
+    <div
+      style={{
+        backgroundImage: 'url("rothamsted/gradient.png")',
+        backgroundSize: "cover", // Add this line
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img
+        src="rothamsted/Text_Connect.png"
+        style={{ height: 250, width: 260, marginBottom: 30 }}
+        alt="Dial Image"
+      />
+      <img
+        src="rothamsted/Dial_3D_Icon.gif"
+        style={{ height: 230, width: 250, marginBottom: 30 }}
+        alt="Dial Image"
+      />
+      {showText && (
+        <Link href="/camera">
+          <p>TAP TO CONNECT</p>
+        </Link>
+      )}
+    </div>
+  );
 }
