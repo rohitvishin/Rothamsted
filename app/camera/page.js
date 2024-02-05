@@ -9,6 +9,7 @@ export default function Camera() {
   const videoRef = useRef(null);
   const overlayVideo = useRef(null);
   const overlayImg = useRef(null);
+  const overlayImg1 = useRef(null);
   const [stream, setStream] = useState(null);
   const [isConnecting, setIsConnecting] = useState(false);
   const [isBarcode, setIsBarcode] = useState(false);
@@ -133,6 +134,22 @@ export default function Camera() {
     };
   }, [isConnecting]);
 
+  useEffect(() => {
+    let hideTimeout;
+
+    if (!isTapON) {
+      hideTimeout = setTimeout(() => {
+        if (overlayImg1.current) {
+          overlayImg1.current.style.display = "none";
+        }
+      }, 100);
+    }
+
+    return () => {
+      clearTimeout(hideTimeout);
+    };
+  }, [isTapON]);
+
   return (
     <div style={{width: "100vw",
     height: "100vh",}}>
@@ -188,9 +205,20 @@ export default function Camera() {
           )}
 
           {isTapON && (
+            <>
             <div className="connecting">
-            <p className="tapOnText">TAP TO SCAN THE ENVIRONMENT</p>
-            </div>
+              <img
+                  ref={overlayImg1}
+                  src="White_box.png" // Replace with the URL of your transparent image
+                  alt="Overlay"
+                  className="overlayImage"
+                  style={{height:'50%',width:'50%'}}
+                />
+                <p className="tapOnText">TAP TO SCAN THE ENVIRONMENT</p>
+                </div>
+            
+            </>
+            
           )}
 
           {isBarcode && (
