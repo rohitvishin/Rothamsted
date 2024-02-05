@@ -13,10 +13,14 @@ export default function Contact(){
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding:25
       }}>
-        <p style={{fontSize:'30px',fontWeight:'bold'}}>GET ON TEAM FARMER!</p>
+        <div>
+        <img
+        src="rothamsted/GetOnTeamFarmer1.webp"
+        style={{ height: 190, width: 200 }}
+      />
         <p>Make a pledge for your favourite species</p>
+        </div>
       <div className="picker" style={{marginTop:50}}>
         <div className="picker-window"></div>
         <ul className="picker-day">
