@@ -8,8 +8,10 @@ const Species = () => {
   const [showModal, setShowModal] = useState(true);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [isDropped, setIsDropped] = useState(false);
+  
   const audioUrl = "drop.mp3";
   useEffect(() => {
+    const audio = new Audio(audioUrl);
     setTimeout(() => {
       audio.play();
       setIsDropped(true)
@@ -127,7 +129,10 @@ const Species = () => {
               <h2>{finalFormattedDate}</h2>
               <h1 style={{fontSize:70,fontWeight:'bold'}}>{hour}</h1>
               </div>
-              <div className="d-flex flex-column align-items-center justify-content-center">
+              {
+                isDropped && (
+                  <>
+                  <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
                   className="mb-3"
                   onClick={() => handleClick(species.bright, "bright", species)}
@@ -167,6 +172,9 @@ const Species = () => {
                   <p>We are contacting you from a dark future..</p>
                 </div>
               </div>
+                  </>
+                )
+              }
             </Modal.Body>
             <style>
               {`
