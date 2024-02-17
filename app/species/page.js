@@ -115,30 +115,35 @@ const Species = () => {
               </div>
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <div
-                  className="text-center mb-3"
+                  className="mb-3"
                   onClick={() => handleClick(species.bright, "bright", species)}
                   style={{
-                    borderRadius: 10,
-                    backgroundColor: "#fff",
-                    padding: 10,
-                    width: "90%",
+                    borderRadius: 18,
+                    backgroundColor: 'rgba(252, 252, 252, 0.4)',
+                    padding: 8,
+                    fontSize:20,
                   }}
                 >
+                  <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
                   <h2>Bright future</h2>
+                  <p>now</p>
+                  </div>
                   <p>We are contacting you from a bright future..</p>
                 </div>
                 <hr />
                 <div
-                  className="text-center"
                   onClick={() => handleClick(species.dark, "dark", species)}
                   style={{
-                    borderRadius: 10,
-                    backgroundColor: "#fff",
-                    padding: 10,
-                    width: "90%",
+                    borderRadius: 18,
+                    backgroundColor: 'rgba(252, 252, 252, 0.4)',
+                    padding: 8,
+                    fontSize:20,
                   }}
                 >
+                  <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
                   <h2>Dark future</h2>
+                  <p>now</p>
+                  </div>
                   <p>We are contacting you from a dark future..</p>
                 </div>
               </div>
