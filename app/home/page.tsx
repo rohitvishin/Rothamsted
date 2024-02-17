@@ -24,6 +24,7 @@ export default function Home() {
         backgroundImage: 'url("rothamsted/gradient.png")',
         backgroundSize: "cover", // Add this line
         height: "100vh",
+        backgroundRepeat:'no-repeat',
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -32,12 +33,12 @@ export default function Home() {
     >
       <img
         src="rothamsted/Text_Connect.png"
-        style={{ height: 250, width: 260, marginBottom: 30 }}
+        style={{ height: 310, width: 340}}
         alt="Dial Image"
       />
       <img
         src="rothamsted/Dial_3D_Icon.gif"
-        style={{ height: 230, width: 250, marginBottom: 30 }}
+        style={{ height: 310, width: 340 }}
         alt="Dial Image"
       />
       {showText && (

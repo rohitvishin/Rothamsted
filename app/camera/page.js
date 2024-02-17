@@ -169,7 +169,8 @@ export default function Camera() {
               className="overlayImage"
               style={{
                 cursor: "pointer",
-                height: "140px",
+                height: "170px",
+                width: "180px",
                 padding: "20px",
                 borderRadius: "10px",
               }}

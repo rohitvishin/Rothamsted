@@ -72,19 +72,20 @@ export default function Landing() {
                   textAlign: "center",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: "120px",
+                  marginTop: "150px",
                 }}
               >
                 <img
                   src="/rothamsted/Headphone_Icon.png"
                   height={100}
                   width={100}
-                  style={{paddingBottom:40}}
+                  style={{paddingBottom:45}}
                   alt="Headphone"
                 />
                 <p style={{ color: "white" }}>
-                  THIS APP IS BEST EXPERIENCED WITH HEADPHONES
+                  THIS APP IS BEST EXPERIENCED 
                 </p>
+                <p style={{ color: "white" }}>WITH HEADPHONES</p>
               </div>
             </div>
           )}
