@@ -44,7 +44,9 @@ export default function Form() {
   return (
     <div
       style={{
-        backgroundImage: `url("rothamsted/BG.png")`,
+        backgroundImage: `url("rothamsted/gradient.png")`,
+        backgroundRepeat:'no-repeat',
+        backgroundSize:'cover',
         height: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -55,9 +57,7 @@ export default function Form() {
         <p
           onClick={playAlter}
           style={{
-            backgroundImage: `url("rothamsted/gradient.png")`,
-            backgroundRepeat:'no-repeat',
-            backgroundSize:'cover',
+            backgroundColor:'#fff',
             borderRadius: "10px",
             padding: "12px",
           }}
@@ -67,11 +67,9 @@ export default function Form() {
         <p
         onClick={()=>window.location.href='/camera'}
           style={{
-            backgroundImage: `url("rothamsted/gradient.png")`,
+            backgroundColor:'#fff',
             borderRadius: "10px",
             padding: "10px",
-            backgroundRepeat:'no-repeat',
-            backgroundSize:'cover',
             marginTop: "20px",
           }}
         >
@@ -80,9 +78,7 @@ export default function Form() {
         <p
         onClick={()=>window.location.href='/contact'}
           style={{
-            backgroundRepeat:'no-repeat',
-            backgroundSize:'cover',
-            backgroundImage: `url("rothamsted/gradient.png")`,
+            backgroundColor:'#fff',
             marginTop: "20px",
             borderRadius: "10px",
             padding: "10px",
