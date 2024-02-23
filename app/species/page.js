@@ -127,7 +127,7 @@ const Species = () => {
             <Modal.Body>
               <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginBottom:80,flexDirection:'column'}}>
               <h2>{finalFormattedDate}</h2>
-              <h1 style={{fontSize:70,fontWeight:'bold'}}>{hour}</h1>
+              <h1 style={{fontSize:80,fontWeight:'bold'}}>{hour}</h1>
               </div>
               {
                 isDropped && (
@@ -179,7 +179,7 @@ const Species = () => {
             <style>
               {`
                 .bg-img{
-                  background-image: url("rothamsted/gradient.png");
+                  background-image: url("rothamsted/gradient.webp");
                 }
                 .modal-content {
                   background-color: rgba(255, 255, 255, 0);

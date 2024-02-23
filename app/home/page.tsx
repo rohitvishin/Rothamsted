@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div
       style={{
-        backgroundImage: 'url("rothamsted/gradient.png")',
+        backgroundImage: 'url("rothamsted/gradient.webp")',
         backgroundSize: "cover", // Add this line
         height: "100vh",
         backgroundRepeat:'no-repeat',
@@ -33,17 +33,17 @@ export default function Home() {
     >
       <img
         src="rothamsted/Text_Connect.png"
-        style={{ height: 310, width: 340}}
+        style={{ height: 220, width: 340}}
         alt="Dial Image"
       />
       <img
         src="rothamsted/Dial_3D_Icon.gif"
-        style={{ height: 310, width: 340 }}
+        style={{ height: 300, width: 340 }}
         alt="Dial Image"
       />
       {showText && (
         <Link href="/camera">
-          <p>TAP TO CONNECT</p>
+          <p style={{fontWeight:500}}>TAP TO CONNECT</p>
         </Link>
       )}
     </div>

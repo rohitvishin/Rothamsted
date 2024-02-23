@@ -9,7 +9,7 @@ export default function Contact(){
     
   return (
     <div className="background" style={{
-        backgroundImage: 'url("rothamsted/gradient.png")',
+        backgroundImage: 'url("rothamsted/gradient.webp")',
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

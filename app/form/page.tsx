@@ -44,7 +44,7 @@ export default function Form() {
   return (
     <div
       style={{
-        backgroundImage: `url("rothamsted/gradient.png")`,
+        backgroundImage: `url("rothamsted/gradient.webp")`,
         backgroundRepeat:'no-repeat',
         backgroundSize:'cover',
         height: "100vh",

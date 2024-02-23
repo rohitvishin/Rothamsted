@@ -159,7 +159,7 @@ export default function Camera() {
             ref={videoRef}
             autoPlay
             playsInline
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100vw", height: "100vh" }}
             onClick={playVideo}
           />
           <div className="connecting">
@@ -169,8 +169,8 @@ export default function Camera() {
               className="overlayImage"
               style={{
                 cursor: "pointer",
-                height: "170px",
-                width: "180px",
+                height: "200px",
+                width: "200px",
                 padding: "20px",
                 borderRadius: "10px",
               }}
@@ -213,7 +213,7 @@ export default function Camera() {
                   src="White_box.png" // Replace with the URL of your transparent image
                   alt="Overlay"
                   className="overlayImage"
-                  style={{height:'50%',width:'50%'}}
+                  style={{height:'70%',width:'70%'}}
                 />
                 <p className="tapOnText">TAP TO SCAN THE ENVIRONMENT</p>
                 </div>

@@ -12,7 +12,7 @@ export default function Thankyou() {
         padding: 25,
       }}
     >
-      <p style={{ fontSize: "30px", fontWeight: "bold" }}>Thankyou!</p>
+      <p style={{ fontSize: "30px", fontWeight: "bold" }}>Thank you!</p>
       <p>
         By Making this pledge you have taken a positive step forward to a bright
         future. now submit the form below to complete your confirmation
@@ -26,7 +26,7 @@ export default function Thankyou() {
         <button
           className="button"
           style={{
-            backgroundImage: `url("rothamsted/gradient.png")`,
+            backgroundImage: `url("rothamsted/gradient.webp")`,
             borderRadius: "10px",
             padding: "10px",
             backgroundRepeat: "no-repeat",

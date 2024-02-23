@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     pointer-events: none;
 }
 
@@ -21,13 +21,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
-    height: 20%;
+    width: 200;
+    height: 200px;
     pointer-events: none;
   }
 
   /* Add this CSS to your stylesheet or component */
 .connectingText {
+    width: max-content;
     position: absolute;
     top: 60%;
     padding-top: 80px;
@@ -37,12 +38,14 @@
     color: white;
   }
   .tapOnText {
+    width: max-content;
     position: absolute;
-    top: 68%;
+    top: 75%;
+    padding-top: 80px;
+    font-size: 13px;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 11px;
   }  
   .barCode {
     position: absolute;
@@ -60,7 +63,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
     pointer-events: none;
   }
