@@ -147,10 +147,10 @@ const Species = () => {
                   }}
                 >
                   <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                  <p style={{fontSize:20,fontWeight:'bold'}}>Bright future</p>
+                  <p style={{fontSize:18,fontWeight:'bold'}}>Bright future</p>
                   <p style={{marginRight:5}}>now</p>
                   </div>
-                  <p style={{fontSize:18}}>We are contacting you from a bright future..</p>
+                  <p style={{fontSize:16}}>We are contacting you from a bright future..</p>
                 </div>
                 <hr />
                 <div
@@ -166,10 +166,10 @@ const Species = () => {
                   }}
                 >
                   <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                  <p style={{fontSize:20,fontWeight:'bold'}}>Dark future</p>
+                  <p style={{fontSize:18,fontWeight:'bold'}}>Dark future</p>
                   <p style={{marginRight:5}}>now</p>
                   </div>
-                  <p style={{fontSize:18}}>We are contacting you from a dark future..</p>
+                  <p style={{fontSize:16}}>We are contacting you from a dark future..</p>
                 </div>
               </div>
                   </>
