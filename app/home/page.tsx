@@ -37,13 +37,13 @@ export default function Home() {
         alt="Dial Image"
       />
       <img
-        src="rothamsted/Dial_3D_Icon.gif"
+        src="rothamsted/Dial_3D.gif"
         style={{ height: 300, width: 340 }}
         alt="Dial Image"
       />
       {showText && (
         <Link href="/camera">
-          <p style={{fontWeight:500}}>TAP TO CONNECT</p>
+          <p style={{fontWeight:500,marginTop:20}}>TAP TO CONNECT</p>
         </Link>
       )}
     </div>
