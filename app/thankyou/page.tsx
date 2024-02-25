@@ -33,14 +33,14 @@ export default function Thankyou() {
     <div
       className="background"
       style={{
+        marginTop:60,
         backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
         padding: 25,
       }}
     >
-      <p style={{ fontSize: "30px", fontWeight: "bold" }}>Thank you!</p>
+      <p style={{ fontSize: "35px", fontWeight: "bold" }}>Thank you!</p>
       <p>
         By Making this pledge you have taken a positive step forward to a bright
         future. now submit the form below to complete your confirmation
@@ -64,7 +64,7 @@ export default function Thankyou() {
             padding: "10px",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            width: 240,
+            width: '100%',
             color:'#fff'
           }}
           onClick={process ? undefined : handleSubmit}
@@ -72,6 +72,13 @@ export default function Thankyou() {
           {process ? 'processing..' : 'SUBMIT'}
         </button>
       </div>
+      <p style={{marginTop:35}}>
+        <h3 style={{fontWeight:600}}>Disclaimer :</h3>
+        By Making this pledge you have taken a positive step forward to a bright
+        future. now submit the form below to complete your confirmation.
+        By Making this pledge you have taken a positive step forward to a bright
+        future.
+      </p>
     </div>
   );
 }

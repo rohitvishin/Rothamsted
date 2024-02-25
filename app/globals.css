@@ -123,7 +123,7 @@ body{
 
 .button-container {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: 10px;
   width: 100%;
 }
 .background{
@@ -150,7 +150,7 @@ body{
 input {
   background-color: #f1f1f1;
   padding: 8px;
-  margin: 10px;
+  margin-top: 10px;
   font-size: 16px;
   width: 100%;
   border-radius: 10px;
