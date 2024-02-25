@@ -5,17 +5,29 @@ export default function Thankyou() {
   const [namedata, setname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [error, setError] = useState(false);
+  const [process, setProcess] = useState(false);
   const handleSubmit=async()=>{
     console.log("form")
-    const formdata= new FormData();
-    formdata.append('NAME',namedata)
-    formdata.append('LAST NAME',lastname)
-    formdata.append('EMAIL',email)
-    await axios.post('https://sheet.best/api/sheets/44625c6d-6f49-492e-b502-60bcce02fb50', formdata)
-    .then(response => {
-      console.log(response);
-    })
-    window.location.href = "/success"
+    if(namedata=="" || lastname=="" || email==""){
+      setError(true);
+      return;
+    }else{
+      setProcess(true);
+      setError(false);
+      const formdata= new FormData();
+      formdata.append('NAME',namedata)
+      formdata.append('LAST NAME',lastname)
+      formdata.append('EMAIL',email)
+      await axios.post('https://sheet.best/api/sheets/44625c6d-6f49-492e-b502-60bcce02fb50', formdata)
+      .then(response => {
+        console.log(response);
+        setProcess(false);
+      }).catch((err)=>{
+        setProcess(false);
+      });
+      window.location.href = "/success"
+    }
   }
   return (
     <div
@@ -39,6 +51,11 @@ export default function Thankyou() {
         <input type="text" onChange={(e) => setEmail(e.target.value)} placeholder="Email" name="email" />
       </form>
       <div className="button-container">
+        {
+          error && (
+            <p style={{color:'red'}}>All fields are mendatory</p>
+          )
+        }
         <button
           className="button"
           style={{
@@ -50,9 +67,9 @@ export default function Thankyou() {
             width: 240,
             color:'#fff'
           }}
-          onClick={handleSubmit}
+          onClick={process ? undefined : handleSubmit}
         >
-          SUBMIT
+          {process ? 'processing..' : 'SUBMIT'}
         </button>
       </div>
     </div>
