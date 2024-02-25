@@ -42,7 +42,7 @@ export default function Thankyou() {
     >
       <p style={{ fontSize: "35px", fontWeight: "bold" }}>Thank you!</p>
       <p>
-        By Making this pledge you have taken a positive step forward to a bright
+        By making this pledge you have taken a positive step forward to a bright
         future. now submit the form below to complete your confirmation
       </p>
       <form style={{ marginTop: 38 }}>
@@ -62,8 +62,6 @@ export default function Thankyou() {
             backgroundImage: `url("rothamsted/gradient.webp")`,
             borderRadius: "10px",
             padding: "10px",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
             width: '100%',
             color:'#fff'
           }}
