@@ -122,10 +122,9 @@ const Species = () => {
             className="bg-img background"
             show={showModal}
             onHide={handleModalClose}
-            centered
           >
             <Modal.Body>
-              <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginBottom:80,flexDirection:'column'}}>
+              <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginTop:50,flexDirection:'column'}}>
               <h2>{finalFormattedDate}</h2>
               <h1 style={{fontSize:80,fontWeight:'bold'}}>{hour}</h1>
               </div>
@@ -137,6 +136,7 @@ const Species = () => {
                   className="mb-3"
                   onClick={() => handleClick(species.bright, "bright", species)}
                   style={{
+                    marginTop:'60%',
                     borderRadius: 12,
                     backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.2)',
                     transition: 'transform 0.2s ease',

@@ -72,10 +72,7 @@ export default function Thankyou() {
       </div>
       <p style={{marginTop:35}}>
         <h3 style={{fontWeight:600}}>Disclaimer :</h3>
-        By Making this pledge you have taken a positive step forward to a bright
-        future. now submit the form below to complete your confirmation.
-        By Making this pledge you have taken a positive step forward to a bright
-        future.
+        By giving us your details you are consenting to receive a limited number of emails from the species you have pledged to support. These will be sent via Furtherfield but you will not be added to any marketing email lists at Furtherfield or Rothamsted Research. Your details will be held and deleted in compliance with GDPR. If you have any questions please contact info@furtherfield.org.
       </p>
     </div>
   );

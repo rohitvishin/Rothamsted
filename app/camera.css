@@ -21,7 +21,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 200;
+    width: 200px;
     height: 200px;
     pointer-events: none;
   }
@@ -38,6 +38,7 @@
     color: white;
   }
   .tapOnText {
+    font-size: 15px;
     width: max-content;
     position: absolute;
     top: 75%;
@@ -63,7 +64,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
-    height: 70%;
     pointer-events: none;
   }

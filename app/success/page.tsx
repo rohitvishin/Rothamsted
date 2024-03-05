@@ -58,7 +58,8 @@ export default function Success() {
         Share the app with a friend
       </p>
     </div>
-    <p
+    <a
+    href="https://docs.google.com/forms/d/e/1FAIpQLScw42T8EXUrIABs_pXj9dyht4PwiWJaaDHvRAjMPK9V9KwBKA/viewform"
         style={{
           marginTop: 15,
           marginLeft:20,
@@ -75,7 +76,7 @@ export default function Success() {
         }}
       >
         Feedback on the experience
-      </p>
+      </a>
     </div>
   );
 }

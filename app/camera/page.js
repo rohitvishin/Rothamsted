@@ -153,6 +153,14 @@ export default function Camera() {
   return (
     <div style={{width: "100vw",
     height: "100vh",}}>
+       <style>
+              {`
+                body{
+                  background-color:#000;
+                }
+               
+              `}
+            </style>
       {randomSpecies ? (
         <>
           <video
@@ -169,13 +177,13 @@ export default function Camera() {
               className="overlayImage"
               style={{
                 cursor: "pointer",
-                height: "200px",
-                width: "200px",
+                height: "230px",
+                width: "230px",
                 padding: "20px",
                 borderRadius: "10px",
               }}
             />
-            <p className="connectingText">TAP TO KNOW MORE</p>
+            <p className="connectingText" style={{fontSize:14}}>TAP TO KNOW MORE</p>
           </div>
         </>
       ) : (
@@ -213,9 +221,10 @@ export default function Camera() {
                   src="White_box.png" // Replace with the URL of your transparent image
                   alt="Overlay"
                   className="overlayImage"
-                  style={{height:'70%',width:'70%'}}
+                  style={{height:'700px',width:'340px'}}
                 />
-                <p className="tapOnText">TAP TO SCAN THE ENVIRONMENT</p>
+                <p className="tapOnText">TAP TO SCAN</p>
+                <p className="tapOnText" style={{marginTop:20}}>THE ENVIRONMENT</p>
                 </div>
             
             </>
@@ -228,6 +237,7 @@ export default function Camera() {
                 ref={overlayVideo}
                 src="SentienceDial_ANM.gif"
                 className="videoOverlay"
+                style={{height:'700px',width:'340px'}}
               />
             </div>
           )}
