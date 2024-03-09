@@ -22,24 +22,23 @@ export default function Contact(){
         <p>Make a pledge for your favourite species</p>
         </div>
         
-        <div style={{margin:5,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
-          <img
-          src="/webp/Btn_BEE.webp"
-          alt="Headphone"
-          height={80}
-          width={80}
-          />
-          <div style={{marginTop:8,width:230,textAlign:'center'}}>
-          <p>I will feed bees and other pllinators.</p>
+        <div style={{maxHeight: '70%', overflowY: 'auto'}}>
+        {
+          speciesList.data.map((item)=>{
+            return <div style={{margin:5,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+              <img
+              src={item.image}
+              alt={item.name}
+              height={80}
+              width={80}
+              />
+              <div style={{marginTop:8,width:230,textAlign:'center'}}>
+              <p>{item.pledge_line}</p>
+              </div>
           </div>
+          })
+        }
         </div>
-        <div style={{margin:5}}>
-        <img
-        src="/pledge/BEE_Pledge.webp"
-        alt="Headphone"
-        />
-        </div>
-
 
     </div>
   );
