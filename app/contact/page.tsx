@@ -14,38 +14,33 @@ export default function Contact(){
         flexDirection: "column",
         alignItems: "center",
       }}>
-        <div>
+        <div style={{marginBottom:25}}>
         <img
         src="rothamsted/GetOnTeamFarmer1.webp"
         style={{ height: 190, width: 200 }}
       />
         <p>Make a pledge for your favourite species</p>
         </div>
-      <div className="picker" style={{marginTop:50}}>
-        <div className="picker-window"></div>
-        <ul className="picker-day">
-          <li>Pledge 01</li>
-          <li>Pledge 02</li>
-          <li>Pledge 03</li>
-          <li>Pledge 04</li>
-          <li>Pledge 05</li>
-          <li>Pledge 06</li>
-          <li>Pledge 07</li>
-        </ul>
-        <ul className="picker-day">
-          {
-            species &&
-            species.map((obj:any)=>{
-                return (
-                    <li key={obj.name}>{obj.name}</li>
-                )
-            })
-          }
-        </ul>
-      </div>
-      <div className="button-container">
-        <button onClick={()=>window.location.href="/thankyou"} className="button">SIGN THE TREATY</button>
-      </div>
+        
+        <div style={{margin:5,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+          <img
+          src="/webp/Btn_BEE.webp"
+          alt="Headphone"
+          height={80}
+          width={80}
+          />
+          <div style={{marginTop:8,width:230,textAlign:'center'}}>
+          <p>I will feed bees and other pllinators.</p>
+          </div>
+        </div>
+        <div style={{margin:5}}>
+        <img
+        src="/pledge/BEE_Pledge.webp"
+        alt="Headphone"
+        />
+        </div>
+
+
     </div>
   );
 };
