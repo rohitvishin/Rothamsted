@@ -25,7 +25,7 @@ export default function Contact(){
         <div style={{maxHeight: '70%', overflowY: 'auto'}}>
         {
           speciesList.data.map((item)=>{
-            return <div style={{margin:5,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+            return <div style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
               <img
               src={item.image}
               alt={item.name}
