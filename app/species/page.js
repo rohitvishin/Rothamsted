@@ -13,10 +13,11 @@ const Species = () => {
   useEffect(() => {
     const audio = new Audio(audioUrl);
     audio.play();
-    setTimeout(() => {
+    const dropTimeout = setTimeout(() => {
       setIsDropped(true)
     }, 800);
     return () => {
+      clearTimeout(dropTimeout);
       // Cleanup audio when component unmounts
       audio.pause();
       audio.currentTime = 0;
@@ -128,53 +129,47 @@ const Species = () => {
               <h2>{finalFormattedDate}</h2>
               <h1 style={{fontSize:80,fontWeight:'bold'}}>{hour}</h1>
               </div>
-              {
-                isDropped && (
-                  <>
-                  <div className="d-flex flex-column align-items-center justify-content-center">
-                    <div
-                      className="mb-3"
-                      onClick={() => handleClick(species.bright, "bright", species)}
-                      style={{
-                        marginTop:'60%',
-                        borderRadius: 12,
-                        backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.2)',
-                        transition: 'transform 0.5s ease',
-                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        transform: isDropped ? 'translateY(80px)' : 'translateY(0)',
-                        padding: 8,
-                        fontSize:20,
-                      }}
-                    >
-                    <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                    <p style={{fontSize:18,fontWeight:'bold'}}>Bright future</p>
-                    <p style={{marginRight:5}}>now</p>
+              <div className="d-flex flex-column align-items-center justify-content-center">
+                      <div
+                        className="mb-3"
+                        onClick={() => handleClick(species.bright, "bright", species)}
+                        style={{
+                          marginTop: '60%',
+                          borderRadius: 12,
+                          backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.0)',
+                          transition: 'transform 0.5s ease',
+                          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                          transform: isDropped ? 'translateY(80px)' : 'translateY(0)',
+                          padding: 8,
+                          fontSize: 20,
+                        }}
+                      >
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <p style={{ fontSize: 18, fontWeight: 'bold' }}>Bright future</p>
+                          <p style={{ marginRight: 5 }}>now</p>
+                        </div>
+                        <p style={{ fontSize: 16 }}>We are contacting you from a bright future..</p>
+                      </div>
+                      <hr />
+                      <div
+                        onClick={() => handleClick(species.dark, "dark", species)}
+                        style={{
+                          borderRadius: 12,
+                          backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.0)',
+                          transition: 'transform 0.5s ease',
+                          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                          transform: isDropped ? 'translateY(50px)' : 'translateY(0)',
+                          padding: 8,
+                          fontSize: 20,
+                        }}
+                      >
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                          <p style={{ fontSize: 18, fontWeight: 'bold' }}>Dark future</p>
+                          <p style={{ marginRight: 5 }}>now</p>
+                        </div>
+                        <p style={{ fontSize: 16 }}>We are contacting you from a dark future..</p>
+                      </div>
                     </div>
-                  <p style={{fontSize:16}}>We are contacting you from a bright future..</p>
-                </div>
-                <hr />
-                <div
-                  onClick={() => handleClick(species.dark, "dark", species)}
-                  style={{
-                    borderRadius: 12,
-                    backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.2)',
-                    transition: 'transform 0.5s ease',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                    transform: isDropped ? 'translateY(50px)' : 'translateY(0)',
-                    padding: 8,
-                    fontSize:20,
-                  }}
-                >
-                  <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
-                  <p style={{fontSize:18,fontWeight:'bold'}}>Dark future</p>
-                  <p style={{marginRight:5}}>now</p>
-                  </div>
-                  <p style={{fontSize:16}}>We are contacting you from a dark future..</p>
-                </div>
-              </div>
-                  </>
-                )
-              }
             </Modal.Body>
             <style>
               {`
