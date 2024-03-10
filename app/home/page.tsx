@@ -11,7 +11,7 @@ export default function Home() {
     audio.play();
     setTimeout(() => {
       setshowText(true);
-    }, 38000);
+    }, 26000);
     return () => {
       // Cleanup audio when component unmounts
       audio.pause();
