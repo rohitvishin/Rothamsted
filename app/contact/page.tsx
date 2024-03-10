@@ -24,8 +24,13 @@ export default function Contact(){
         
         <div style={{maxHeight: '70%', overflowY: 'auto'}}>
         {
+<<<<<<< HEAD
           speciesList.data.map((item,index)=>{
             return <div key={index} style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+=======
+          speciesList.data.map((item)=>(
+            <div style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+>>>>>>> 16b7a99195fcfb9e684e36d395c79d843009fa41
               <img
               src={item.image}
               alt={item.name}
@@ -36,7 +41,7 @@ export default function Contact(){
               <p>{item.pledge_line}</p>
               </div>
           </div>
-          })
+          ))
         }
         </div>
 
