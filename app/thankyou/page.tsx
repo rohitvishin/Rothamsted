@@ -13,6 +13,9 @@ export default function Thankyou() {
       setError(true);
       return;
     }else{
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const spec = urlParams.get("name");
       setProcess(true);
       setError(false);
       const formdata= new FormData();
@@ -26,7 +29,7 @@ export default function Thankyou() {
       }).catch((err)=>{
         setProcess(false);
       });
-      window.location.href = "/success"
+      window.location.href = "/success?name="+spec;
     }
   }
   return (

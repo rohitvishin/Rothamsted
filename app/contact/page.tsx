@@ -25,17 +25,14 @@ export default function Contact(){
         <div style={{maxHeight: '70%', overflowY: 'auto'}}>
         {
           speciesList.data.map((item,index)=>(
-            <div key={index} style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
-              <img
-              src={item.image}
-              alt={item.name}
-              height={80}
-              width={80}
-              />
-              <div style={{marginTop:8,width:230,textAlign:'center'}}>
-              <p>{item.pledge_line}</p>
-              </div>
-          </div>
+            <a key={index} href={'/thankyou?name='+item.name} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+              <img src={item.image} alt={item.name} height={80} width={80} />
+                <div style={{marginTop:8,width:230,textAlign:'center'}}>
+                <p>{item.pledge_line}</p>
+                </div>
+            </div>
+            </a>
           ))
         }
         </div>
