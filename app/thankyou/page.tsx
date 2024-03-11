@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import { speciesList } from "../constant/species";
 export default function Thankyou() {
   const [namedata, setname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
@@ -16,13 +17,15 @@ export default function Thankyou() {
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const spec = urlParams.get("name");
+      const speciesName:any = speciesList.data.find((obj) => obj.name === spec);
       setProcess(true);
       setError(false);
       const formdata= new FormData();
       formdata.append('NAME',namedata)
       formdata.append('LAST NAME',lastname)
       formdata.append('EMAIL',email)
-      await axios.post('https://sheet.best/api/sheets/44625c6d-6f49-492e-b502-60bcce02fb50', formdata)
+      formdata.append('PLEDGE',speciesName?.pledge_line)
+      await axios.post('https://sheet.best/api/sheets/c5f8fa4d-7c21-4c76-88f3-61450c01bda2', formdata)
       .then(response => {
         console.log(response);
         setProcess(false);
