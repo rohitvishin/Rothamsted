@@ -1,17 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { speciesList } from "../constant/species";
 export default function Success() {
-  const [species, setspecies] = useState<any>(null);
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const spec = urlParams.get("name");
-
-    const speciesName = speciesList.data.find((obj) => obj.name === spec);
-    setspecies(speciesName);
-  }, [])
-  
   return (
     <div>
       <div
@@ -55,20 +44,6 @@ export default function Success() {
           Your one small step can bring big changes in the future!
         </p>
       </div>
-      <a
-        href={species?species.pledge_link:''}
-        style={{
-          marginTop: 50,
-          backgroundImage: `url("rothamsted/gradient.webp")`,
-          padding: "10px",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          width: "100%",
-          color: "#fff",
-        }}
-      >
-        Help with your pledge
-      </a>
       <p
         style={{
           marginTop: 5,

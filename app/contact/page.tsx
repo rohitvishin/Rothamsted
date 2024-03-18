@@ -26,13 +26,16 @@ export default function Contact(){
         {
           speciesList.data.map((item,index)=>(
             <a key={index} href={'/thankyou?name='+item.name} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{margin:10,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:5,borderRadius:10}}>
+            <div style={{margin:15,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:3,borderRadius:10}}>
               <img src={item.image} alt={item.name} height={80} width={80} />
-                <div style={{marginTop:8,width:230,textAlign:'center'}}>
-                <p>{item.pledge_line}</p>
-                </div>
-                <a href="/">help ?</a>
+              <div style={{margin:10,width:230,textAlign:'left'}}>
+              <p>{item.pledge_line}</p>
+              </div>
+              <div style={{fontSize:30,padding:15,width:50,display:"flex",flexDirection:"row",backgroundColor:'#c1caa5',color:'blue',borderRadius:10}}>
+                <a href={item.pledge_link}>?</a>                
+              </div>
             </div>
+              
             </a>
           ))
         }

@@ -32,7 +32,7 @@ export default function Thankyou() {
       }).catch((err)=>{
         setProcess(false);
       });
-      window.location.href = "/success?name="+spec;
+      window.location.href = "/success";
     }
   }
   return (
