@@ -49,7 +49,7 @@ export default function Thankyou() {
         future. now submit the form below to complete your confirmation
       </p>
       <form style={{ marginTop: 38 }}>
-        <input type="text" onChange={(e) => setname(e.target.value)}  placeholder="Name" name="name" />
+        <input type="text" onChange={(e) => setname(e.target.value)}  placeholder="First Name" name="name" />
         <input type="text" onChange={(e) => setLastname(e.target.value)} placeholder="Last Name" name="lastname" />
         <input type="text" onChange={(e) => setEmail(e.target.value)} placeholder="Email" name="email" />
       </form>

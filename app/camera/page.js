@@ -16,6 +16,7 @@ export default function Camera() {
   const [isTapON, setIsTapON] = useState(false);
   const [randomSpecies, setRandomSpecies] = useState(false);
   const [species, setSpecies] = useState(null);
+  const [clickIcon, setClickIcon] = useState(false);
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * speciesList.data.length);
@@ -72,8 +73,8 @@ export default function Camera() {
       setRandomSpecies(true);
     }, 6000);
   };
-
   const playVideo = () => {
+    setClickIcon(true);
     const videoElement = document.createElement("video");
     videoElement.src = species.intro;
     videoElement.height = window.innerHeight;
@@ -93,7 +94,10 @@ export default function Camera() {
         router.push("/species?name=" + species.name);
       }
     };
-
+    videoElement.addEventListener("ended", () => {
+      document.body.removeChild(videoElement);
+      router.push("/species?name=" + species.name);
+    });
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     videoElement.addEventListener(
       "webkitfullscreenchange",
@@ -183,7 +187,7 @@ export default function Camera() {
                 borderRadius: "10px",
               }}
             />
-            <p className="connectingText" style={{fontSize:14}}>TAP TO KNOW MORE</p>
+            <p className="connectingText" style={{fontSize:14}}>{clickIcon?'CONNECTING..':'TAP TO CONNECT'}</p>
           </div>
         </>
       ) : (
@@ -223,8 +227,6 @@ export default function Camera() {
                   className="overlayImage"
                   style={{height:'700px',width:'340px'}}
                 />
-                <p className="tapOnText">TAP TO SCAN</p>
-                <p className="tapOnText" style={{marginTop:20}}>THE ENVIRONMENT</p>
                 </div>
             
             </>

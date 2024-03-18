@@ -17,7 +17,7 @@ export default function Home() {
       audio.pause();
       audio.currentTime = 0;
     };
-  }, [audioUrl]);
+  }, []);
   return (
     <div
       style={{
@@ -28,7 +28,7 @@ export default function Home() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        paddingTop:50,
       }}
     >
       <img

@@ -31,6 +31,7 @@ export default function Contact(){
                 <div style={{marginTop:8,width:230,textAlign:'center'}}>
                 <p>{item.pledge_line}</p>
                 </div>
+                <a href="/">help ?</a>
             </div>
             </a>
           ))

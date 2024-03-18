@@ -9,7 +9,7 @@ const Species = () => {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [isDropped, setIsDropped] = useState(false);
   
-  const audioUrl = "drop.mp3";
+  const audioUrl = "drop.wav";
   useEffect(() => {
     const audio = new Audio(audioUrl);
     audio.play();
@@ -77,11 +77,15 @@ const Species = () => {
       const handleFullscreenChange = () => {
         if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
         } else {
-          document.body.removeChild(videoElement);
-          window.location.href = `/form?future=${future}&species=${data.name}`;
-          //do whatever you want on fullscreen close, like pause or mute
-      }
+            document.body.removeChild(videoElement);
+            window.location.href = `/form?future=${future}&species=${data.name}`;
+            //do whatever you want on fullscreen close, like pause or mute
+        }
       };
+      videoElement.addEventListener("ended", () => {
+        document.body.removeChild(videoElement);
+        window.location.href = `/form?future=${future}&species=${data.name}`;
+      });
       document.addEventListener("fullscreenchange", handleFullscreenChange);
       videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
       videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
@@ -136,7 +140,7 @@ const Species = () => {
                   className="mb-3"
                   onClick={() => handleClick(species.bright, "bright", species)}
                   style={{
-                    marginTop:'60%',
+                    marginTop:'50%',
                     borderRadius: 12,
                     backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.2)',
                     transition: 'transform 0.2s ease',
