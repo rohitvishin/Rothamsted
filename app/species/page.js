@@ -13,10 +13,11 @@ const Species = () => {
   useEffect(() => {
     const audio = new Audio(audioUrl);
     audio.play();
-    setTimeout(() => {
+    const dropTimeout = setTimeout(() => {
       setIsDropped(true)
     }, 800);
     return () => {
+      clearTimeout(dropTimeout);
       // Cleanup audio when component unmounts
       audio.pause();
       audio.currentTime = 0;
@@ -128,7 +129,7 @@ const Species = () => {
             onHide={handleModalClose}
           >
             <Modal.Body>
-              <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginTop:50,flexDirection:'column'}}>
+              <div style={{display:'flex',justifyContent:'center',textAlign:'center',marginTop:35,flexDirection:'column'}}>
               <h2>{finalFormattedDate}</h2>
               <h1 style={{fontSize:80,fontWeight:'bold'}}>{hour}</h1>
               </div>
