@@ -28,7 +28,7 @@ export default function Home() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop:50,
+        padding:40,
       }}
     >
       <img

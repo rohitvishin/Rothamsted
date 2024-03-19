@@ -14,7 +14,7 @@ export default function Contact(){
         flexDirection: "column",
         alignItems: "center",
       }}>
-        <div style={{marginBottom:25}}>
+        <div style={{marginBottom:25,width:'340px'}}>
         <img
         src="rothamsted/GetOnTeamFarmer1.webp"
         style={{ height: 190, width: 200 }}
@@ -22,16 +22,16 @@ export default function Contact(){
         <p>Make a pledge for your favourite species</p>
         </div>
         
-        <div style={{maxHeight: '70%', overflowY: 'auto'}}>
+        <div style={{maxHeight: '70%', overflowY: 'auto',padding:7}}>
         {
           speciesList.data.map((item,index)=>(
             <a key={index} href={'/thankyou?name='+item.name} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div style={{margin:15,display:"flex",flexDirection:"row",backgroundColor:'#ebf5ca',padding:3,borderRadius:10}}>
               <img src={item.image} alt={item.name} height={80} width={80} />
-              <div style={{margin:10,width:230,textAlign:'left'}}>
+              <div style={{marginLeft:10,marginRight:5,width:230,textAlign:'left'}}>
               <p>{item.pledge_line}</p>
               </div>
-              <div style={{fontSize:30,padding:15,width:50,display:"flex",flexDirection:"row",backgroundColor:'#c1caa5',color:'blue',borderRadius:10}}>
+              <div style={{fontSize:30,padding:15,width:50,display:"flex",flexDirection:"row",backgroundColor:'#c1caa5',borderRadius:10}}>
                 <a href={item.pledge_link}>?</a>                
               </div>
             </div>

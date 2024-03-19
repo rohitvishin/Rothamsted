@@ -140,17 +140,17 @@ const Species = () => {
                         style={{
                           marginTop: '60%',
                           borderRadius: 12,
-                          backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.0)',
+                          backgroundColor: isDropped ? '#e5edd6' : 'rgba(252, 252, 252, 0.0)',
                           transition: 'transform 0.5s ease',
                           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                           transform: isDropped ? 'translateY(80px)' : 'translateY(0)',
-                          padding: 8,
+                          padding: 12,
                           fontSize: 20,
                         }}
                       >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                           <p style={{ fontSize: 18, fontWeight: 'bold' }}>Bright future</p>
-                          <p style={{ marginRight: 5 }}>now</p>
+                          <p style={{ marginRight: 5,color:'gray',fontSize:16 }}>now</p>
                         </div>
                         <p style={{ fontSize: 16 }}>We are contacting you from a bright future..</p>
                       </div>
@@ -159,17 +159,17 @@ const Species = () => {
                         onClick={() => handleClick(species.dark, "dark", species)}
                         style={{
                           borderRadius: 12,
-                          backgroundColor: isDropped ? 'rgba(252, 252, 252, 0.5)' : 'rgba(252, 252, 252, 0.0)',
+                          backgroundColor: isDropped ? '#e5edd6' : 'rgba(252, 252, 252, 0.0)',
                           transition: 'transform 0.5s ease',
                           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                           transform: isDropped ? 'translateY(50px)' : 'translateY(0)',
-                          padding: 8,
+                          padding: 12,
                           fontSize: 20,
                         }}
                       >
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                           <p style={{ fontSize: 18, fontWeight: 'bold' }}>Dark future</p>
-                          <p style={{ marginRight: 5 }}>now</p>
+                          <p style={{ marginRight: 5,color:'gray',fontSize:16 }}>now</p>
                         </div>
                         <p style={{ fontSize: 16 }}>We are contacting you from a dark future..</p>
                       </div>

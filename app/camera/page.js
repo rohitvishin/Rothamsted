@@ -75,43 +75,7 @@ export default function Camera() {
   };
   const playVideo = () => {
     setClickIcon(true);
-    const videoElement = document.createElement("video");
-    videoElement.src = species.intro;
-    videoElement.height = window.innerHeight;
-    videoElement.width = window.innerWidth;
-    videoElement.controls = true;
-    videoElement.autoplay = true;
-
-    const handleFullscreenChange = () => {
-      if (
-        document.fullscreenElement ||
-        document.webkitFullscreenElement ||
-        document.mozFullScreenElement ||
-        document.msFullscreenElement
-      ) {
-      } else {
-        document.body.removeChild(videoElement);
-        router.push("/species?name=" + species.name);
-      }
-    };
-    videoElement.addEventListener("ended", () => {
-      document.body.removeChild(videoElement);
-      router.push("/species?name=" + species.name);
-    });
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    videoElement.addEventListener(
-      "webkitfullscreenchange",
-      handleFullscreenChange
-    );
-    videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
-    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
-    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
-
-    document.body.appendChild(videoElement);
-
-    videoElement.requestFullscreen().catch((err) => {
-      console.error("Error attempting to enable fullscreen", err);
-    });
+    
   };
 
   useEffect(() => {
@@ -155,16 +119,15 @@ export default function Camera() {
   }, [isTapON]);
 
   return (
-    <div style={{width: "100vw",
-    height: "100vh",}}>
-       <style>
-              {`
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <style>
+        {`
                 body{
                   background-color:#000;
                 }
                
               `}
-            </style>
+      </style>
       {randomSpecies ? (
         <>
           <video
@@ -187,7 +150,18 @@ export default function Camera() {
                 borderRadius: "10px",
               }}
             />
-            <p className="connectingText" style={{fontSize:14}}>{clickIcon?'CONNECTING..':'TAP TO CONNECT'}</p>
+            {clickIcon ? (
+              <img
+                className="connectingText"
+                ref={overlayImg1}
+                src="Connecting.gif" // Replace with the URL of your transparent image
+                alt="Overlay"
+              />
+            ) : (
+              <p className="connectingText" style={{ fontSize: 14 }}>
+                TAP TO CONNECT
+              </p>
+            )}
           </div>
         </>
       ) : (
@@ -198,7 +172,7 @@ export default function Camera() {
             ref={videoRef}
             autoPlay
             playsInline
-            style={{ width: "100vw", height: "100vh"}}
+            style={{ width: "100vw", height: "100vh" }}
           />
 
           {isConnecting && (
@@ -211,26 +185,22 @@ export default function Camera() {
                   className="overlayImage"
                 />
               </div>
-              <p className="connectingText">
-                CONNECTING TO SENTIENCE DIAL..
-              </p>
+              <p className="connectingText">CONNECTING TO SENTIENCE DIAL..</p>
             </>
           )}
 
           {isTapON && (
             <>
-            <div className="connecting">
-              <img
+              <div className="connecting">
+                <img
                   ref={overlayImg1}
                   src="White_box.png" // Replace with the URL of your transparent image
                   alt="Overlay"
                   className="overlayImage"
-                  style={{height:'700px',width:'340px'}}
+                  style={{ height: "700px", width: "340px" }}
                 />
-                </div>
-            
+              </div>
             </>
-            
           )}
 
           {isBarcode && (
@@ -239,7 +209,7 @@ export default function Camera() {
                 ref={overlayVideo}
                 src="SentienceDial_ANM.gif"
                 className="videoOverlay"
-                style={{height:'700px',width:'340px'}}
+                style={{ height: "700px", width: "340px" }}
               />
             </div>
           )}
