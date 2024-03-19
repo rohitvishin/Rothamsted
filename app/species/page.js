@@ -138,7 +138,7 @@ const Species = () => {
                         className="mb-3"
                         onClick={() => handleClick(species.bright, "bright", species)}
                         style={{
-                          marginTop: '60%',
+                          marginTop: '30%',
                           borderRadius: 12,
                           backgroundColor: isDropped ? '#e5edd6' : 'rgba(252, 252, 252, 0.0)',
                           transition: 'transform 0.5s ease',
