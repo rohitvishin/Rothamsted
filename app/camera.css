@@ -66,3 +66,34 @@
     transform: translate(-50%, -50%);
     pointer-events: none;
   }
+.connectingDots {
+  width: max-content;
+  position: absolute;
+  top: 65%;
+  padding-top: 80px;
+  font-size: 13px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #c9f74b;
+}
+
+.connectingDots::after {
+  content: '.';
+  animation: dots 1s infinite linear;
+}
+
+@keyframes dots {
+  0% {
+    content: '.';
+  }
+  25% {
+    content: '..';
+  }
+  50% {
+    content: '...';
+  }
+  75% {
+    content: '...';
+  }
+ 
+}
