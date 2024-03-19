@@ -75,7 +75,43 @@ export default function Camera() {
   };
   const playVideo = () => {
     setClickIcon(true);
-    
+    const videoElement = document.createElement("video");
+    videoElement.src = species.intro;
+    videoElement.height = window.innerHeight;
+    videoElement.width = window.innerWidth;
+    videoElement.controls = true;
+    videoElement.autoplay = true;
+
+    const handleFullscreenChange = () => {
+      if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      ) {
+      } else {
+        document.body.removeChild(videoElement);
+        router.push("/species?name=" + species.name);
+      }
+    };
+    videoElement.addEventListener("ended", () => {
+      document.body.removeChild(videoElement);
+      router.push("/species?name=" + species.name);
+    });
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    videoElement.addEventListener(
+      "webkitfullscreenchange",
+      handleFullscreenChange
+    );
+    videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+    document.body.appendChild(videoElement);
+
+    videoElement.requestFullscreen().catch((err) => {
+      console.error("Error attempting to enable fullscreen", err);
+    });
   };
 
   useEffect(() => {
