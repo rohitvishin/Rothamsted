@@ -75,7 +75,6 @@ export default function Camera() {
   };
   const playVideo = () => {
     setClickIcon(true);
-    return;
     const videoElement = document.createElement("video");
     videoElement.src = species.intro;
     videoElement.height = window.innerHeight;
