@@ -1,40 +1,35 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
-import { speciesList } from "../constant/species";
 export default function Thankyou() {
   const [namedata, setname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState(false);
+  const [message, setMessage] = useState<any>('');
   const [process, setProcess] = useState(false);
-  const handleSubmit=async()=>{
-    console.log("form")
-    if(namedata=="" || lastname=="" || email==""){
-      setError(true);
-      return;
-    }else{
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const spec = urlParams.get("name");
-      const speciesName:any = speciesList.data.find((obj) => obj.name === spec);
-      setProcess(true);
-      setError(false);
-      const formdata= new FormData();
-      formdata.append('NAME',namedata)
-      formdata.append('LAST NAME',lastname)
-      formdata.append('EMAIL',email)
-      formdata.append('PLEDGE',speciesName?.pledge_line)
-      await axios.post('https://sheet.best/api/sheets/c5f8fa4d-7c21-4c76-88f3-61450c01bda2', formdata)
-      .then(response => {
-        console.log(response);
-        setProcess(false);
-      }).catch((err)=>{
-        setProcess(false);
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
+    setProcess(true);
+    try {
+      const response = await fetch('/api/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({firstname:namedata,lastname:lastname,email:email}),
       });
-      window.location.href = "/success";
+      const data = await response.json();
+      if (data.success) {
+        window.location.href = "/success";
+      } else {
+        setMessage(data.error);
+        setError(true);
+      }
+    } catch (error) {
+      setMessage(error);
     }
-  }
+    setProcess(false);
+  };
   return (
     <div
       className="background"
@@ -59,7 +54,7 @@ export default function Thankyou() {
       <div className="button-container">
         {
           error && (
-            <p style={{color:'red'}}>All fields are mendatory</p>
+            <p style={{color:'red'}}>{message}</p>
           )
         }
         <button
