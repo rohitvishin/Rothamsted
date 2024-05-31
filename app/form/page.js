@@ -6,41 +6,49 @@ export default function Form() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    var future = urlParams.get("future");
+    let future = urlParams.get("future");
     const species = urlParams.get("species");
     console.log(future + " " + species);
     const spec = speciesList.data.find((obj) => obj.name === species);
     if (spec) {
-      const videoElement = document.createElement("video");
-      if (future == "bright") {
-        videoElement.src = spec.dark;
-        future = "dark";
-      } else {
-        videoElement.src = spec.bright;
-        future = "bright";
-      }
+        const videoElement = document.createElement("video");
+        if (future === "bright") {
+            videoElement.src = spec.dark;
+            future = "dark";
+        } else {
+            videoElement.src = spec.bright;
+            future = "bright";
+        }
       videoElement.height = window.innerHeight;
       videoElement.width = window.innerWidth;
       videoElement.controls = true;
       videoElement.autoplay = true;
-
-      // Event listener for exiting fullscreen
-      document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
+        const handleFullscreenChange = () => {
+          if(document.fullScreenElement || document.webkitIsFullScreen == true || document.mozFullScreen || document.msFullscreenElement ){
+          }else {
+                // Fullscreen mode is exited
+                document.body.removeChild(videoElement);
+                window.location.href = `/form?future=${future}&species=${species}`;
+            }
+        };
+        videoElement.addEventListener("ended", () => {
           document.body.removeChild(videoElement);
-          // Exit fullscreen when the video ends
-          window.location.href =
-            "/form?future=" + future + "&species=" + species;
-        }
-      });
+          window.location.href = `/form?future=${future}&species=${data.name}`;
+        });
+        document.addEventListener("fullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      videoElement.addEventListener("webkitendfullscreen", handleFullscreenChange);
+      document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
-      document.body.appendChild(videoElement);
+        document.body.appendChild(videoElement);
 
-      videoElement.requestFullscreen().catch((err) => {
-        console.error("Error attempting to enable fullscreen", err);
-      });
+        videoElement.requestFullscreen().catch((err) => {
+            console.error("Error attempting to enable fullscreen", err);
+        });
     }
-  };
+};
+
   return (
     <div
       style={{
