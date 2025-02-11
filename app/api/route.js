@@ -4,9 +4,9 @@ import { connectToDatabase } from '../../lib/mongodb';
 
 export async function POST(request) {
     try {
-      const { firstname, lastname, email } = await request.json();
+      const { firstname, lastname, email,species,date } = await request.json();
   
-      if (!firstname || !lastname || !email) {
+      if (!firstname || !lastname || !email || !species) {
         return new Response(JSON.stringify({ error: 'Missing required fields' }), {
           status: 400,
           headers: {
@@ -27,7 +27,7 @@ export async function POST(request) {
       const { db } = await connectToDatabase();
       const collection = db.collection('rothamsted');
   
-      const result = await collection.insertOne({ firstname, lastname, email });
+      const result = await collection.insertOne({ firstname, lastname, email,species,date });
   
       return new Response(JSON.stringify({ success: true, data: { id: result.insertedId } }), {
         status: 201,

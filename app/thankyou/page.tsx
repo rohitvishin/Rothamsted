@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Species from "../species/page";
 export default function Thankyou() {
   const [namedata, setname] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
@@ -8,6 +9,9 @@ export default function Thankyou() {
   const [message, setMessage] = useState<any>('');
   const [process, setProcess] = useState(false);
   const handleSubmit = async (e:any) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const spec = urlParams.get("name");
     e.preventDefault();
     setProcess(true);
     try {
@@ -16,7 +20,13 @@ export default function Thankyou() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({firstname:namedata,lastname:lastname,email:email}),
+        body: JSON.stringify({
+          firstname: namedata,
+          lastname: lastname,
+          email: email,
+          species: spec,
+          date: new Date().toISOString().split('T')[0]
+        }),
       });
       const data = await response.json();
       if (data.success) {
